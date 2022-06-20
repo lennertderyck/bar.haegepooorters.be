@@ -1,6 +1,6 @@
 {
-  "short_name": "React App",
-  "name": "Create React App Sample",
+  "short_name": "Stam HP",
+  "name": "Stam HP",
   "icons": [
     {
       "src": "favicon.ico",
@@ -16,6 +16,38 @@
       "src": "logo512.png",
       "type": "image/png",
       "sizes": "512x512"
+    }
+  ],
+  "screenshots": [
+    {
+      "src": "screenshots/account-select.png",
+      "description": "Selecteer een account op je device om te starten",
+      "sizes": "1170x2532",
+      "type": "image/png"
+    },
+    {
+      "src": "screenshots/enter-pin.png",
+      "description": "Eenvoudig toegang met een pin-code",
+      "sizes": "1170x2532",
+      "type": "image/png"
+    },
+    {
+      "src": "screenshots/sub-total.png",
+      "description": "Een overzicht van het subtotaal",
+      "sizes": "1170x2532",
+      "type": "image/png"
+    },
+    {
+      "src": "screenshots/select-wallet.png",
+      "description": "Selecteer een wallet om te betalen",
+      "sizes": "1170x2532",
+      "type": "image/png"
+    },
+    {
+      "src": "screenshots/purchase.png",
+      "description": "Rond je bestelling af",
+      "sizes": "1170x2532",
+      "type": "image/png"
     }
   ],
   "start_url": ".",
