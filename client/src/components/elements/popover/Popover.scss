@@ -1,0 +1,16 @@
+.popover-exit-done, .popover {
+    transform: translateY(100%);
+    transition-delay: 200ms;
+}
+  
+.popover-enter-done {
+    transform: translateY(0%);
+}
+
+.backdrop {
+    opacity: 0;
+}
+
+.backdrop-enter-done {
+    opacity: 1;
+}

@@ -1,0 +1,39 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+    html {
+      -webkit-tap-highlight-color: transparent;
+    }
+}
+
+* {
+    transition: all 0.25s ease;
+}
+
+html {
+    font-family: 'Sora', sans-serif;
+}
+
+html, body, #root {
+    @apply h-full;
+}
+
+.pre-heading {
+    @apply text-stone-500 uppercase tracking-widest font-medium text-lg;
+}
+
+.heading {
+    font-size: 7vw; //@todo clamp / min-max font-size
+}
+
+.label {
+    @apply uppercase tracking-widest font-medium text-xs;
+}
+
+.slide-routes {
+    &, .item {
+        @apply h-full max-h-screen overflow-scroll;
+    }
+}
