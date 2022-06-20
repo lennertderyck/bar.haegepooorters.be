@@ -22,10 +22,10 @@ html, body, #root {
 
 body {
     padding: 
-        env(safe-area-inset-top, 20px)
-        env(safe-area-inset-right, 20px)
-        env(safe-area-inset-bottom, 20px)
-        env(safe-area-inset-left, 20px);
+        calc(env(safe-area-inset-top, 20px) * -1)
+        calc(env(safe-area-inset-right, 20px) * -1)
+        calc(env(safe-area-inset-bottom, 20px) * -1)
+        calc(env(safe-area-inset-left, 20px) * -1);
 }
 
 .pre-heading {
