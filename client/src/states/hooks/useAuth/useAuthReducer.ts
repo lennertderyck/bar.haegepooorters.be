@@ -1,12 +1,13 @@
 import { useReducer } from 'react';
 import { Action, AuthReducerState } from './useAuth.types';
 
+const cachedWallet = window.localStorage.getItem('selectedWallet');
 const initialValues: AuthReducerState = {
     user: null,
     loading: false,
     error: null,
     isAuthenticated: false,
-    selectedWallet: JSON.parse(window.localStorage.getItem('selectedWallet') || ''),
+    selectedWallet: cachedWallet ? JSON.parse(cachedWallet) : undefined,
 }
 
 const createReducer = () => (

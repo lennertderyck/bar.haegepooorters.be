@@ -5,8 +5,6 @@ import './utils/global.js';
 
 const { MONGO_USER, MONGO_PWD, MONGO_CLUSTER, MONGO_DBNAME } = process.env;
 
-console.log(process.env)
-
 mongoose.connect(
     `mongodb+srv://${MONGO_USER}:${MONGO_PWD}@${MONGO_CLUSTER}/${MONGO_DBNAME}?retryWrites=true&w=majority`,
     { useNewUrlParser: true, useUnifiedTopology: true }
