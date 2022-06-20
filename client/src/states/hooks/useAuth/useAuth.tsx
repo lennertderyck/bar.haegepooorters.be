@@ -84,7 +84,7 @@ const useAuth: UseAuth = () => {
     const login: AuthFunctions['login'] = (credentials: LoginCredentials) => {
         dispatch({ type: 'AUTH_INIT' });
         
-        const request = axios(process.env.REACT_APP_API_URL || 'http://localhost:4000', {
+        const request = axios((process.env.REACT_APP_API_URL || 'http://localhost:4000') + '/login', {
             method: 'POST',
             data: credentials
         });

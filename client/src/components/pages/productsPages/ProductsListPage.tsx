@@ -89,7 +89,7 @@ const ProductsListPage: FC<Props> = () => {
     const [ animationParent ] = useAutoAnimate<HTMLUListElement>()
     const [ selectedProduct, setSelectedProduct ] = useState<CartItem>()
     const { addItem, getItem, removeSingle, total, purchase, startPurchase, items } = useCart();
-    const { data } = useAxiosBeta<Product[]>(process.env.REACT_APP_API_URL || 'http://localhost:4000');
+    const { data } = useAxiosBeta<Product[]>((process.env.REACT_APP_API_URL || 'http://localhost:4000') + '/products');
         
     const handleCartAdd = (item: Product) => {
         addItem(item);

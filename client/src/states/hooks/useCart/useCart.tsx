@@ -58,7 +58,7 @@ const useCart: UseCart = () => {
         
         const collectItemIds = cartState.items.map(item => item.id);
         
-        const transaction = axios(process.env.REACT_APP_API_URL || 'http://localhost:4000', 
+        const transaction = axios((process.env.REACT_APP_API_URL || 'http://localhost:4000') + '/purchase', 
             { 
                 data: {
                     wallet: selectedWallet?.id,
