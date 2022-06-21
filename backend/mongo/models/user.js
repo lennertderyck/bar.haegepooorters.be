@@ -2,6 +2,7 @@ import mongoose from 'mongoose'
 const { Schema, model } = mongoose;
 import softDelete from 'mongoosejs-soft-delete'
 import toJson from '@meanie/mongoose-to-json';
+import { prePopulate } from '../helpers/population.js';
 
 const UserSchema = new Schema({
     email: String,
@@ -24,13 +25,16 @@ const UserSchema = new Schema({
     }
 })
 .plugin(softDelete)
-.plugin(toJson);
+.plugin(toJson)
 
 UserSchema.virtual('wallets', {
-    ref: 'Wallet',
+    ref: 'UserWallet',
     localField: '_id',
     foreignField: 'user',
 })
+
+UserSchema.pre('find', prePopulate('wallets'));
+UserSchema.pre('findOne', prePopulate('wallets'));
 
 const User = model('User', UserSchema)
 

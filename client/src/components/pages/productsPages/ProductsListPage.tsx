@@ -8,6 +8,7 @@ import Pricfy from '../../basics/pricify/Pricify';
 import { Popover, ProductCard, WalletSelector } from '../../elements';
 import { useAutoAnimate } from '@formkit/auto-animate/react'
 import useAuth from '../../../states/hooks/useAuth/useAuth';
+import useEndPoints from '../../../states/hooks/useEndpoints/useEndpoints';
 
 type ProductDetailPopupProps = {
     selectedProduct: Product;
@@ -15,7 +16,7 @@ type ProductDetailPopupProps = {
 }
 
 const ProductDetailPopup: FC<ProductDetailPopupProps> = ({ selectedProduct, onClose }) => {
-    const { getItem, addItem, removeSingle, removeItem } = useCart();
+    const { getItem, addItem, removeSingle } = useCart();
     
     const cartitem = getItem(selectedProduct);
     const itemNotInCart = cartitem.amount === 0;
@@ -82,6 +83,7 @@ type Props = {
 };
 
 const ProductsListPage: FC<Props> = () => {
+    const endpoints = useEndPoints();
     const { selectedWallet } = useAuth();
     const [ showWalletSelect, setShowWalletSelect ] = useState(false);
     const [ showConfirm, setShowConfirm ] = useState(false);
@@ -89,7 +91,7 @@ const ProductsListPage: FC<Props> = () => {
     const [ animationParent ] = useAutoAnimate<HTMLUListElement>()
     const [ selectedProduct, setSelectedProduct ] = useState<CartItem>()
     const { addItem, getItem, removeSingle, total, purchase, startPurchase, items } = useCart();
-    const { data } = useAxiosBeta<Product[]>((process.env.REACT_APP_API_URL || 'http://localhost:4000') + '/products');
+    const { data } = useAxiosBeta<Product[]>(endpoints.products.all);
         
     const handleCartAdd = (item: Product) => {
         addItem(item);
@@ -172,7 +174,7 @@ const ProductsListPage: FC<Props> = () => {
                         </div>
                         <p className="text-stone-400 text-sm">Achterstallige betaling</p>
                             
-                        <Button secondary icon="arrow-right-s" className="mt-6" onClick={() => setShowWalletSelect(true)}>{ selectedWallet?.label || 'Selecteer een wallet'}</Button>
+                        <Button secondary icon="arrow-right-s" className="mt-6" onClick={() => setShowWalletSelect(true)}>{ selectedWallet?.provider.label || 'Selecteer een wallet'}</Button>
                     </div>
                         
                     <Button 
@@ -202,7 +204,7 @@ const ProductsListPage: FC<Props> = () => {
                 <div className="mb-6">
                     <div className="flex justify-between">
                         <span>Wallet</span>
-                        <span className="font-semibold">{ selectedWallet?.label }</span>
+                        <span className="font-semibold">{ selectedWallet?.provider.label }</span>
                     </div>
                     <p className="text-stone-400 text-sm">Geselecteerde wallet</p>
                     

@@ -2,6 +2,7 @@ import mongoose from 'mongoose'
 const { Schema, model } = mongoose;
 import softDelete from 'mongoosejs-soft-delete'
 import toJson from '@meanie/mongoose-to-json';
+import { prePopulate } from '../helpers/population.js';
 
 const ProductSchema = new Schema({
     name: String,
@@ -27,6 +28,8 @@ const ProductSchema = new Schema({
 .plugin(softDelete)
 .plugin(toJson);
 
+ProductSchema.pre('find', prePopulate('category'));
+ProductSchema.pre('findOne', prePopulate('category'));
 
 const Product = model('Product', ProductSchema)
 

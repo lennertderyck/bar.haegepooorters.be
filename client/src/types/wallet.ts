@@ -2,14 +2,18 @@ import { CartItem } from "./bar"
 import { ID, Record } from "./general"
 import { User } from "./verification"
 
-export interface Wallet extends Record {
+export interface WalletProvider extends Record {
     label: string,
-    balance: number,
+}
+
+export interface Wallet extends Record {
+    balance: number;
+    provider: WalletProvider;
 }
 
 export interface Purchase {
-    items: CartItem[],
-    wallet: ID,
+    items: CartItem[];
+    wallet: ID;
 }
 
 export interface Transaction extends Purchase, Record {};

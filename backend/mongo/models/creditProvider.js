@@ -3,7 +3,7 @@ const { Schema, model } = mongoose;
 import softDelete from 'mongoosejs-soft-delete'
 import toJson from '@meanie/mongoose-to-json';
 
-const WalletSchema = new Schema({
+const CreditProviderSchema = new Schema({
     label: String,
     createdAt: {
         type: Date,
@@ -18,6 +18,6 @@ const WalletSchema = new Schema({
 .plugin(softDelete)
 .plugin(toJson);
 
-const Wallet = model('Wallet', WalletSchema);
+const CreditProvider = model('CreditProvider', CreditProviderSchema);
 
-export default Wallet;
+export default CreditProvider;

@@ -1,11 +1,10 @@
 import bcrypt from 'bcrypt';
-import mongoose from 'mongoose';
-const { isValidObjectId } = mongoose;
+import CreditProvider from '../mongo/models/creditProvider.js';
 import Product from '../mongo/models/product.js';
 import ProductCategory from '../mongo/models/productCategory.js';
 import Transaction from '../mongo/models/transaction.js';
 import User from "../mongo/models/user.js";
-import Wallet from '../mongo/models/wallet.js';
+import UserWallet from '../mongo/models/userWallet.js';
 import { hashJwtToken } from '../utils/auth/index.js';
 
 export const status = (req, res) => {
@@ -102,7 +101,7 @@ export const login = async (req, res) => {
         }
     
         const token = hashJwtToken({ userId: user._id, role: user.role });
-        const wallets = await Wallet.find();
+        const wallets = await UserWallet.find();
         const addedBalances = wallets.map(w => ({
             ...w.toJSON(),
             balance: 12.50
@@ -125,10 +124,24 @@ export const login = async (req, res) => {
     }
 }
 
-export const addWallet = async (req, res) => {
-    const newWallet = await Wallet.create(req.body);
-    res.json(newWallet);
+export const registerUserWallet = async (req, res) => {
+    if (!req.user) {
+        res.status(401).json({
+            status: 'ERROR',
+            error: {
+                message: 'Unauthorized'
+            }
+        })
+    } else {
+        const newWallet = await UserWallet.create({
+            ...req.body,
+            user: req.user.id
+        });
+        res.json(newWallet);
+    }
+    
 }
+
 export const getWallet = async (req, res) => {
     console.log('USER')
     
@@ -140,22 +153,11 @@ export const getWallet = async (req, res) => {
             }
         })
     } else {
-        const wallets = await Wallet.find();
-        
-        const f = await Promise.all(wallets.map(async (wallet) => {
-            const transactions = await Transaction.find({
-                user: req.user.id,
-                wallet: wallet.id
-            })
-            
-            return {
-                ...wallet.toJSON(),
-                transactions,
-                balance: 12.45,
-            }
-        }))
+        const wallet = await UserWallet.find({
+            user: req.user.id
+        })
                 
-        res.json(f);
+        res.json(wallet);
     }
     
 }
@@ -168,6 +170,23 @@ export const getProducts = async (req, res) => {
 }
 
 export const registerTransaction = async (req, res) => {
+    if (!req.user) {
+        res.status(401).json({
+            status: 'ERROR',
+            error: {
+                message: 'Unauthorized'
+            }
+        })
+    } else {
+        const newTransaction = await Transaction.create({
+            ...req.body,
+        });
+        
+        res.json(newTransaction)
+    }
+}
+
+export const registerTransactionByUser = async (req, res) => {
     if (!req.user) {
         res.status(401).json({
             status: 'ERROR',
@@ -193,4 +212,46 @@ export const addProduct = async (req, res) => {
 export const addCategory = async (req, res) => {
     const newCategory = await ProductCategory.create(req.body);
     res.json(newCategory);
+}
+
+export const registerCreditProvider = async (req, res) => {
+    const newCreditProvider = await CreditProvider.create(req.body);
+    res.json(newCreditProvider);
+}
+
+export const getAllCreditProviders = async (req, res) => {
+    const creditProviders = await CreditProvider.find({});
+    res.json(creditProviders);
+}
+
+export const getTransactionsByUser = async (req, res) => {
+    if (!req.user) {
+        res.status(401).json({
+            status: 'ERROR',
+            error: {
+                message: 'Unauthorized'
+            }
+        })
+    } else {
+        const transactions = await Transaction.find({
+            user: req.user.id
+        });
+        res.json(transactions);
+    }
+}
+
+export const getUserWallets = async (req, res) => {
+    if (!req.user) {
+        res.status(401).json({
+            status: 'ERROR',
+            error: {
+                message: 'Unauthorized'
+            }
+        })
+    } else {
+        const wallets = await UserWallet.find({
+            user: req.user.id
+        });
+        res.json(wallets);
+    }
 }

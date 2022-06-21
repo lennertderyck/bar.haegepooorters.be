@@ -1,16 +1,17 @@
 import axios from "axios";
 import { useEffect } from "react";
 import { useContext } from "react";
-import { useLazyAxios } from "use-axios-client";
 import { Product } from "../../../types/bar";
 import { ID } from "../../../types/general";
 import { Transaction } from "../../../types/wallet";
 import { cartContext } from "../../contexts/CartContext/CartContext";
 import useAuth from "../useAuth/useAuth";
+import useEndPoints from "../useEndpoints/useEndpoints";
 import { UseCart } from "./useCart.types";
 import { initialState } from "./useCartReducer";
 
 const useCart: UseCart = () => {
+    const endpoints = useEndPoints();
     const { user, selectedWallet } = useAuth()
     const { cartState, dispatch } = useContext(cartContext);
     
@@ -56,13 +57,16 @@ const useCart: UseCart = () => {
             type: "PURCHASE_INIT"
         });
         
-        const collectItemIds = cartState.items.map(item => item.id);
+        const collectItems = cartState.items.map(item => ({
+            product: item.id,
+            amount: item.amount
+        }));
         
-        const transaction = axios((process.env.REACT_APP_API_URL || 'http://localhost:4000') + '/purchase', 
+        const transaction = axios(endpoints.user.purchase, 
             { 
                 data: {
                     wallet: selectedWallet?.id,
-                    items: collectItemIds
+                    items: collectItems
                 },
                 method: 'POST', 
                 headers: { 

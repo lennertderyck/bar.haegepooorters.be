@@ -1,11 +1,6 @@
-import axios from 'axios';
-import { FC, useEffect, useRef, useState } from 'react';
+import { FC } from 'react';
 import { Link } from 'react-router-dom';
 import useAuth from '../../../states/hooks/useAuth/useAuth';
-import useAxiosBeta from '../../../states/hooks/useAxiosBeta/useAxiosBeta';
-import { Wallet } from '../../../types/wallet';
-import { WalletCard, WalletListing } from '../../elements';
-import { useLazyAxios } from 'use-axios-client';
 import { Icon } from '../../basics';
 
 type Props = {
@@ -28,7 +23,8 @@ const StartPage: FC<Props> = ({ children }) => {
                         <Link to={ `/wallets/${ wallet.id }` } className="block">
                                 <div className="bg-gradient-to-r from-stone-200 via-stone-300 to-stone-400 p-5 rounded-xl">
                                 <div>
-                                    <h3 className="text-4xl">€ { wallet.balance }</h3>
+                                    <h3 className="">{ wallet.provider.label }</h3>
+                                    <h4 className="text-4xl">€ { wallet.balance }</h4>
                                 </div>
                                 <div className="label text-stone-500 flex items-center mt-3">
                                     <span>Saldo toevoegen</span>

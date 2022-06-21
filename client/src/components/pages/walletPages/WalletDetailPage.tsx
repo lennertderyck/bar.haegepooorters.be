@@ -24,7 +24,7 @@ const WalletDetailPage: FC<Props> = ({ children }) => {
             </Link>
             <div className="mb-6">
                 <div className="pre-heading">Wallet</div>
-                <div className="heading">{ selectedWallet.label }</div>
+                <div className="heading">{ selectedWallet.provider.label }</div>
             </div>
             <WalletCard wallet={ selectedWallet } onlyBalance />
         </div>

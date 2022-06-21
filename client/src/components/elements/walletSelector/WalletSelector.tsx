@@ -1,7 +1,6 @@
 import { FC } from 'react';
-import { useAxios } from 'use-axios-client';
 import useAuth from '../../../states/hooks/useAuth/useAuth';
-import { Button, Icon, Pricify } from '../../basics';
+import { Icon, Pricify } from '../../basics';
 import Popover from '../popover/Popover';
 
 type Props = {
@@ -28,7 +27,7 @@ const WalletSelector: FC<Props> = ({ active, onClose }) => {
                             className="flex items-center justify-between border-b last:border-b-0 border-stone-200 py-4 text-lg"
                         >
                             <p>  
-                                { wallet.label } <span className="text-stone-400">(<Pricify>{ wallet.balance }</Pricify>)</span>
+                                { wallet.provider.label } <span className="text-stone-400">(<Pricify>{ wallet.balance }</Pricify>)</span>
                             </p>
                             { selectedWallet?.id === wallet.id && <Icon name="check" /> }
                         </li>
