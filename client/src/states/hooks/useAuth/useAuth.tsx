@@ -77,10 +77,6 @@ const useAuth: UseAuth = () => {
         }
     }
     
-    const register = (user: RegisterCredentials) => {
-        
-    }
-    
     const login: AuthFunctions['login'] = (credentials: LoginCredentials) => {
         dispatch({ type: 'AUTH_INIT' });
         
@@ -102,6 +98,10 @@ const useAuth: UseAuth = () => {
             dispatch({ type: 'AUTH_SUCCESS', payload: response.data })
         });
         request.catch((error: any) => dispatch({ type: 'AUTH_FAILED', payload: error }));
+    }
+    
+    const refreshUser = () => {
+        
     }
     
     const loginRetry = () => {

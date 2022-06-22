@@ -21,7 +21,8 @@ export type Action =
 | { type: 'AUTH_RETRY' }
 | { type: 'AUTH_SUCCESS'; payload: AuthenticatedUser }
 | { type: 'AUTH_FAILED'; payload: Error }
-| { type: 'WALLET_SELECT'; payload: Wallet };
+| { type: 'WALLET_SELECT'; payload: Wallet }
+| { type: 'SET_USER'; payload: AuthenticatedUser };
 
 export type AuthFunctions = {
     login: (credentials: LoginCredentials) => void;

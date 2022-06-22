@@ -101,17 +101,14 @@ export const login = async (req, res) => {
         }
     
         const token = hashJwtToken({ userId: user._id, role: user.role });
+        
         const wallets = await UserWallet.find();
-        const addedBalances = wallets.map(w => ({
-            ...w.toJSON(),
-            balance: 12.50
-        }));
         
         if (token) {
             res.json({
                 user,
                 token,
-                wallets: addedBalances
+                wallets
             })
         }
     
@@ -194,11 +191,20 @@ export const registerTransactionByUser = async (req, res) => {
                 message: 'Unauthorized'
             }
         })
-    } else {
+    } else {        
         const newTransaction = await Transaction.create({
             user: req.user.id,
             ...req.body,
         });
+        
+        // const totalPrice = req.body.items.reduce((acc, item) => {
+        //     return acc - item.price * item.amount
+        // }, 0)
+        
+        const wallet = await UserWallet.findById(req.body.wallet);
+        await UserWallet.findByIdAndUpdate(req.body.id, {
+            balance: wallet.balance - 1
+        })
         
         res.json(newTransaction)
     }
@@ -253,5 +259,43 @@ export const getUserWallets = async (req, res) => {
             user: req.user.id
         });
         res.json(wallets);
+    }
+}
+
+export const topupUserWallet = async (req, res) => {
+    if (!req.user) {
+        res.status(401).json({
+            status: 'ERROR',
+            error: {
+                message: 'Unauthorized'
+            }
+        })
+    } else {
+        const wallet = await UserWallet.findOne({
+            _id: req.params.id,
+            user: req.user.id
+        });
+        
+        if (wallet) {
+            const updated = await UserWallet.findOneAndUpdate(
+                {
+                    _id: req.params.id,
+                    user: req.user.id
+                }, 
+                {
+                    balance: wallet.balance + req.body.amount
+                }, 
+                { new: true }
+            );
+            
+            res.json(updated);
+        } else {
+            res.status(401).json({
+                status: 'ERROR',
+                error: {
+                    message: 'Could not find wallet'
+                }
+            })
+        }
     }
 }

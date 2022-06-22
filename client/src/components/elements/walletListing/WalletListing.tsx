@@ -5,6 +5,7 @@ import useAxiosBeta from '../../../states/hooks/useAxiosBeta/useAxiosBeta';
 import useEndPoints from '../../../states/hooks/useEndpoints/useEndpoints';
 import { Wallet, WalletProvider } from '../../../types/wallet';
 import { Icon } from '../../basics';
+import CreateWalletCard from '../createWalletCard/CreateWalletCard';
 import WalletCard from '../walletCard/WalletCard';
 
 type Props = {
@@ -13,17 +14,18 @@ type Props = {
 const WalletListing: FC<Props> = () => {
     const endpoints = useEndPoints();
     const { user } = useAuth();
+    const { data: wallets, refetch: refetchWallets } = useAxiosBeta<Wallet[]>(endpoints.user.wallets, {
+        headers: {
+            'Authorization': 'Bearer ' + user?.token
+        }
+    });
     const walletsState = useAxiosBeta<WalletProvider[]>(endpoints.creditProviders.all);
-    
-    const addWalletToUser = async (wallet: WalletProvider) => {
-        
-    }
 
     return (
         <div>
             {
-                walletsState?.data?.map((provider) => {
-                    const createdWallet = user?.wallets?.find((w) => w.provider.id === provider.id);
+                wallets && walletsState?.data?.map((provider) => {
+                    const createdWallet = wallets?.find((w) => w.provider.id === provider.id);
                     
                     if (createdWallet) { return ( 
                         <Link to={ `/wallets/${ createdWallet.id }` } className="block mb-4 last:mb-0">
@@ -31,26 +33,11 @@ const WalletListing: FC<Props> = () => {
                         </Link>
                     )} else {
                         return (
-                            <div 
-                                className="bg-stone-50 border border-stone-300 border-dashed p-5 rounded-xl"
-                            >
-                                <div>
-                                    <h3 className="text-xl text-stone-500">{ provider.label }</h3>
-                                </div>
-                                <div className="label text-stone-500 flex items-center mt-1">
-                                    <span>Wallet aanmaken</span>
-                                    <Icon name="add" size="1rem" className="ml-1" />
-                                </div>
-                            </div>
+                            <CreateWalletCard provider={ provider } onCreated={ refetchWallets } />
                         )
                     }
                 })
             }
-            {/* { user?.wallets?.map(wallet => (
-                <Link to={ `/wallets/${ wallet.id }` } className="block mb-4 last:mb-0">
-                    <WalletCard wallet={ wallet } key={ wallet.id } />
-                </Link>
-            ))} */}
         </div>
     )
 }

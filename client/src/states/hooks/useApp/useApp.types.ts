@@ -1,4 +1,5 @@
 export type UseAppProperties = {
-    isInstalled: boolean;
+    installed: boolean;
+    add2Screen: () => Promise<void>
 };
 export type UseApp = () => UseAppProperties;

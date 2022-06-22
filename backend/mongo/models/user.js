@@ -27,14 +27,14 @@ const UserSchema = new Schema({
 .plugin(softDelete)
 .plugin(toJson)
 
-UserSchema.virtual('wallets', {
+UserSchema.virtual('wallet', {
     ref: 'UserWallet',
     localField: '_id',
     foreignField: 'user',
 })
 
-UserSchema.pre('find', prePopulate('wallets'));
-UserSchema.pre('findOne', prePopulate('wallets'));
+UserSchema.pre('find', prePopulate('wallet'));
+UserSchema.pre('findOne', prePopulate('wallet'));
 
 const User = model('User', UserSchema)
 

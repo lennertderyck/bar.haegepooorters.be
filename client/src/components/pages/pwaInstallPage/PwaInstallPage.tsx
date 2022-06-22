@@ -1,12 +1,14 @@
 import { FC } from 'react';
-import { Button } from '../../../../components/basics';
 import { useUA } from 'use-ua-parser-js';
+import { useApp } from '../../../states/hooks/useApp/useApp';
+import { Button } from '../../basics';
 
 type Props = {
     children?: any;
 };
 
-const HomePage: FC<Props> = ({ children }) => {
+const PwaInstallPage: FC<Props> = ({ children }) => {
+    const app = useApp();
     const uaDetails = useUA();
     
     const isMobile = uaDetails?.device.type === 'mobile';
@@ -18,7 +20,15 @@ const HomePage: FC<Props> = ({ children }) => {
                     <h1 className="text-4xl text-center">BarApp</h1>
                 </div>
             </header>
-            { isMobile ? (<>
+            <div className="container mx-auto px-12">
+                <h2 className="text-center text-xl">Installeer BarApp om verder te gaan</h2>
+                <p className="text-center text-stone-500">De app wordt toegevoegd aan je startschem</p>
+                
+                <div className="mt-4">
+                    <Button onClick={ app.add2Screen } icon="arrow-right-down">Installeren</Button>
+                </div>
+            </div>
+            {/* { isMobile ? (<>
                 <div className="container mx-auto px-12">
                     <a href="/app/session">
                         <Button>Aanmelden</Button>
@@ -28,13 +38,10 @@ const HomePage: FC<Props> = ({ children }) => {
                     </a>
                 </div>
             </>) : (<>
-                <div className="container mx-auto px-12">
-                    <h2 className="text-center text-xl">Je kan de app hier nog niet gebruiken</h2>
-                    <p className="text-center text-stone-500">Open deze pagina op je smartphone</p>
-                </div>
-            </>)}
+                
+            </>)} */}
         </div>
     )
 }
 
-export default HomePage;
+export default PwaInstallPage;

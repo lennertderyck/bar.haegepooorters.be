@@ -8,7 +8,7 @@ const useEndPoints = (overrideOrigin?: string) => {
             login: origin + '/user/login',
             purchase: origin + '/user/purchase',
             wallets: origin + '/user/wallets',
-            addWallet: origin + '/user/add-wallet',
+            addWallet: origin + '/user/wallet',
         },
         creditProviders: {
             all: origin + '/credit-provider',

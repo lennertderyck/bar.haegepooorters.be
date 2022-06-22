@@ -7,28 +7,28 @@ type Props = {
     children?: any;
 };
 
-const menuItems = [
-    {
-        label: 'Profiel',
-        subLabel: 'lennyderyck@gmail.com',
-        icon: 'account-circle',
-        route: '/user/account',
-    },
-    {
-        label: 'Wallets',
-        subLabel: '3 beschikbaar',
-        icon: 'wallet',
-        route: '/user/wallets',
-    },
-    {
-        label: 'Transacties',
-        icon: 'history',
-        route: '/user/transactions',
-    },
-]
-
 const UserDetailPage: FC<Props> = ({ children }) => {
     const { user } = useAuth();
+    
+    const menuItems = [
+        {
+            label: 'Profiel',
+            subLabel: 'lennyderyck@gmail.com',
+            icon: 'account-circle',
+            route: '/user/account',
+        },
+        {
+            label: 'Wallets',
+            subLabel: user?.wallets.length + ' beschikbaar',
+            icon: 'wallet',
+            route: '/user/wallets',
+        },
+        {
+            label: 'Transacties',
+            icon: 'history',
+            route: '/user/transactions',
+        },
+    ]
     
     return (
         <div className="p-8">

@@ -9,7 +9,7 @@ type Props = {
 
 const WalletCard: FC<Props> = ({ wallet, onlyBalance }) => {
     return (
-        <div className="bg-gradient-to-r from-stone-200 via-stone-300 to-stone-400 p-5 rounded-xl">
+        <div className="bg-gradient-to-r from-stone-200 via-stone-300 to-stone-400 p-5 rounded-xl select-none">
             <div>
                 { !onlyBalance && <h4>{ wallet.provider.label }</h4>}
                 <h3 className="text-4xl">€ { wallet.balance || '0' }</h3>

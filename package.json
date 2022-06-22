@@ -1,0 +1,28 @@
+{
+  "name": "bar.haegepooorters.be",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "install:server": "cd ./backend && npm install",
+    "install:client": "cd ./client && npm install",
+    "dev:server": "cd ./backend && npm run dev",
+    "dev:client": "cd ./client && npm run start",
+    "setup": "run-p install:server install:client",
+    "dev": "run-p dev:server dev:client"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/lennertderyck/bar.haegepooorters.be.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/lennertderyck/bar.haegepooorters.be/issues"
+  },
+  "homepage": "https://github.com/lennertderyck/bar.haegepooorters.be#readme",
+  "dependencies": {
+    "npm-run-all": "^4.1.5"
+  }
+}

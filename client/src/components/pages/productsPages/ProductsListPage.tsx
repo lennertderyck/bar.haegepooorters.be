@@ -97,6 +97,14 @@ const ProductsListPage: FC<Props> = () => {
         addItem(item);
     }
     
+    const handlePurchase = () => {
+        if (selectedWallet) {
+            setShowConfirm(true)
+        } else {
+            setShowWalletSelect(true);
+        }
+    }
+    
     const handlePurchaseConfirm = async () => {
         await startPurchase();
         setShowConfirm(false);
@@ -178,14 +186,21 @@ const ProductsListPage: FC<Props> = () => {
                     </div>
                         
                     <Button 
+                        disabled={ !!selectedWallet && selectedWallet?.balance <= 0 }
                         icon="arrow-right" 
-                        onClick={() => setShowConfirm(true)}
+                        onClick={ handlePurchase }
                     >
                         <div className="flex items-center justify-between w-full mr-2">
                             <span>Afrekenen</span>
                             <span><Pricfy>{ total }</Pricfy></span>
                         </div>
                     </Button>
+                    
+                    { !!selectedWallet && selectedWallet?.balance <= 0 && (
+                        <div className="text-red-600 text-center text-sm w-fit bg-red-100 py-1.5 px-3 mx-auto rounded-b-2xl">
+                            Je hebt te weinig tegoed
+                        </div>
+                    )}
                 </div>
             </div>
             

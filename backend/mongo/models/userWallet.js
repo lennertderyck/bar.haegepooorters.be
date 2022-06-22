@@ -13,6 +13,10 @@ const UserWalletSchema = new Schema({
         type: Schema.Types.ObjectId,
         ref: 'User'
     },
+    balance: {
+        type: Number,
+        default: 0
+    },
     createdAt: {
         type: Date,
         default: Date.now

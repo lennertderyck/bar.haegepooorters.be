@@ -15,6 +15,7 @@ const ButtonShim = tw.button`w-full
     rounded-full
     uppercase
     tracking-widest
+    ${(props: Props) => props.disabled ? 'opacity-50' : 'opacity-100' }
     ${(props: Props) => props.secondary ? 'bg-white font-medium' : 'bg-black text-white'}
     ${(props: Props) => !props.simple ? 'py-3 border' : 'py-0'}
     ${(props: Props) => !props.simple ? props.secondary ? 'border-stone-300' : 'border-black' : ''}

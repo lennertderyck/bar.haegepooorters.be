@@ -1,5 +1,6 @@
 import { FC } from 'react';
 import useAuth from '../../../states/hooks/useAuth/useAuth';
+import { Wallet } from '../../../types/wallet';
 import { Icon, Pricify } from '../../basics';
 import Popover from '../popover/Popover';
 
@@ -7,10 +8,19 @@ type Props = {
     children?: any;
     active: boolean;
     onClose: () => void;
+    onSelect?: (wallet: Wallet) => void;
 };
 
-const WalletSelector: FC<Props> = ({ active, onClose }) => {
+const WalletSelector: FC<Props> = ({ active, onClose, onSelect }) => {
     const { user, selectedWallet, selectWallet } = useAuth();
+    
+    const handleWalletSelect = (wallet: Wallet) => {
+        selectWallet(wallet)
+        
+        if(!!onSelect) {
+            onSelect(wallet);
+        }
+    }
     
     return (
         <Popover {...{ active, onClose }}>
@@ -23,7 +33,7 @@ const WalletSelector: FC<Props> = ({ active, onClose }) => {
                     return (
                         <li 
                             key={ wallet.id } 
-                            onClick={() => selectWallet(wallet)}
+                            onClick={() => handleWalletSelect(wallet)}
                             className="flex items-center justify-between border-b last:border-b-0 border-stone-200 py-4 text-lg"
                         >
                             <p>  

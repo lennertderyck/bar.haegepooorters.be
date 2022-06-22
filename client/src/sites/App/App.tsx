@@ -1,7 +1,9 @@
 import React from 'react';
 import { Router } from '../../components/elements';
+import { PwaInstallPage } from '../../components/pages';
 import AuthContextProvider from '../../states/contexts/AuthContext/AuthContext';
 import CartContextProvider from '../../states/contexts/CartContext/CartContext';
+import { useApp } from '../../states/hooks/useApp/useApp';
 import { Session } from '../../types/verification';
 
 const sessions: Session[] = [
@@ -35,11 +37,16 @@ const sessions: Session[] = [
 
 window.localStorage.setItem('sessions', JSON.stringify(sessions));
 
-function App() {  
+function App() {
+  const app = useApp();
+  
   return <>
     <AuthContextProvider>
       <CartContextProvider>
-        <Router />
+        { app.installed && process.env.NODE_ENV === 'development' ? 
+          <Router /> :
+          <PwaInstallPage />
+        }
       </CartContextProvider>
     </AuthContextProvider>
   </>;
