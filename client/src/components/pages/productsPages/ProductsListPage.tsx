@@ -182,7 +182,7 @@ const ProductsListPage: FC<Props> = () => {
                         </div>
                         <p className="text-stone-400 text-sm">Achterstallige betaling</p>
                             
-                        <Button secondary icon="arrow-right-s" className="mt-6" onClick={() => setShowWalletSelect(true)}>{ selectedWallet?.provider.label || 'Selecteer een wallet'}</Button>
+                        <Button secondary icon="arrow-right-s" className="mt-6" onClick={() => setShowWalletSelect(true)}>{ selectedWallet?.provider?.label || 'Selecteer een wallet'}</Button>
                     </div>
                         
                     <Button 
