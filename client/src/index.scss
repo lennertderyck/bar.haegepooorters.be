@@ -21,11 +21,13 @@ html, body, #root {
 }
 
 body {
-    padding: 
-        calc(env(safe-area-inset-top, 20px) * -1)
-        calc(env(safe-area-inset-right, 20px) * -1)
-        calc(env(safe-area-inset-bottom, 20px) * -1)
-        calc(env(safe-area-inset-left, 20px) * -1);
+    min-height: calc(100% + env(safe-area-inset-top));
+    // padding: env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left);
+    // padding: 
+    //     calc(env(safe-area-inset-top, 20px) * -1)
+    //     calc(env(safe-area-inset-right, 20px) * -1)
+    //     calc(env(safe-area-inset-bottom, 20px) * -1)
+    //     calc(env(safe-area-inset-left, 20px) * -1);
 }
 
 .pre-heading {
