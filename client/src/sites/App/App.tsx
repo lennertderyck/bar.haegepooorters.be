@@ -43,10 +43,11 @@ function App() {
   return <>
     <AuthContextProvider>
       <CartContextProvider>
-        { app.installed && process.env.NODE_ENV === 'development' ? 
+        {/* { app.installed && process.env.NODE_ENV === 'development' ? 
           <Router /> :
           <PwaInstallPage />
-        }
+        } */}
+        <Router />
       </CartContextProvider>
     </AuthContextProvider>
   </>;

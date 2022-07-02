@@ -7,3 +7,10 @@ export interface Record {
     createdAt: string;
     updatedAt: string;
 }
+
+export type FeatureFlag = {
+    label: string;
+    id: string;
+    default: boolean;
+    description: string;
+}
