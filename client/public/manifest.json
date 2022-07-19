@@ -53,5 +53,11 @@
   "start_url": "/app",
   "display": "standalone",
   "theme_color": "#ffffff",
-  "background_color": "#ffffff"
+  "background_color": "#ffffff",
+  "protocol_handlers": [
+    {
+      "protocol": "barapp",
+      "url": "/app/rd/%s"
+    }
+  ]
 }
