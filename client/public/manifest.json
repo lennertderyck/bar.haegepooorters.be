@@ -56,8 +56,8 @@
   "background_color": "#ffffff",
   "protocol_handlers": [
     {
-      "protocol": "barapp",
-      "url": "/app/rd?for=%s"
+      "protocol": "web+barapp",
+      "url": "/app/rd/%s"
     }
   ]
 }
