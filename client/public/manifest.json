@@ -57,7 +57,7 @@
   "protocol_handlers": [
     {
       "protocol": "web+barapp",
-      "url": "/app/rd/%s"
+      "url": "./rd?to=%s"
     }
   ]
 }
