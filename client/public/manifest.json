@@ -50,14 +50,14 @@
       "type": "image/png"
     }
   ],
-  "start_url": "/app/",
+  "start_url": "/app",
   "display": "standalone",
   "theme_color": "#ffffff",
   "background_color": "#ffffff",
   "protocol_handlers": [
     {
       "protocol": "web+barapp",
-      "url": "./rd?to=%s"
+      "url": "/app/rd?to=%s"
     }
   ]
 }
