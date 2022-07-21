@@ -24,8 +24,6 @@ dayjs.updateLocale('en', {
   }
 })
 
-navigator.vibrate(50);
-
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
 );

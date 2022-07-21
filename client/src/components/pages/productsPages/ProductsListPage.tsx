@@ -148,6 +148,7 @@ const ProductsListPage: FC<Props> = () => {
                                 onAddItem={() => {
                                     setSelectedProduct(product);
                                     handleCartAdd(product)
+                                    navigator.vibrate(50);
                                 }}
                             />
                         )
