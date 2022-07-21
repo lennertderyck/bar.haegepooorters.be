@@ -54,7 +54,7 @@ const createReducer = () => (
                 ...state,
                 selectedWallet: action.payload,
             }
-        case 'SET_USER': 
+        case 'USER_REFRESH': 
             return {
                 ...state,
                 user: action.payload

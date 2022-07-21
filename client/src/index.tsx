@@ -4,9 +4,27 @@ import './index.scss';
 import * as serviceWorkerRegistration from './serviceWorkerRegistration';
 import dayjs from 'dayjs';
 import relativeTime from 'dayjs/plugin/relativeTime';
+import calendar from 'dayjs/plugin/calendar';
+import updateLocale from 'dayjs/plugin/updateLocale';
+import 'dayjs/locale/nl-be'
 import SitesRoot from './sites/SitesRoot';
 
 dayjs.extend(relativeTime)
+dayjs.extend(calendar)
+dayjs.extend(updateLocale)
+dayjs.locale('nl-be');
+dayjs.updateLocale('en', {
+  calendar: {
+    lastDay: '[Gisteren at] LT',
+    sameDay: '[Vandaag om] LT',
+    nextDay: '[Morgen om] LT',
+    lastWeek: '[last] dddd [om] LT',
+    nextWeek: 'dddd [om] LT',
+    sameElse: 'L'
+  }
+})
+
+navigator.vibrate(50);
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement

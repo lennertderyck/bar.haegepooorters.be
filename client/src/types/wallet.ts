@@ -1,5 +1,5 @@
 import { CartItem } from "./bar"
-import { ID, Record } from "./general"
+import { ID, Intrest, Record } from "./general"
 import { User } from "./verification"
 
 export interface WalletProvider extends Record {
@@ -14,6 +14,13 @@ export interface Wallet extends Record {
 export interface Purchase {
     items: CartItem[];
     wallet: ID;
+    intrest: Intrest;
 }
 
-export interface Transaction extends Purchase, Record {};
+export interface Transaction extends Record {
+    wallet: Wallet,
+    items: [{
+        amount: number,
+        product: CartItem
+    }]
+};

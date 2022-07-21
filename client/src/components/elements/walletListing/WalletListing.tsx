@@ -28,7 +28,7 @@ const WalletListing: FC<Props> = () => {
                     const createdWallet = wallets?.find((w) => w.provider.id === provider.id);
                     
                     if (createdWallet) { return ( 
-                        <Link to={ `/wallets/${ createdWallet.id }` } className="block mb-4 last:mb-0">
+                        <Link to={ `/user/wallets/${ createdWallet.id }` } className="block mb-4 last:mb-0">
                             <WalletCard wallet={ createdWallet } key={ createdWallet.id } />
                         </Link>
                     )} else {

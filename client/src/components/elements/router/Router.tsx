@@ -1,12 +1,10 @@
 import {
-    BrowserRouter,
-    Routes,
     Route
 } from "react-router-dom";
 // @ts-ignore
 import SlideRoutes from 'react-slide-routes';
 import { FC } from 'react';
-import { AddSessionPage, CartPage, FeatureFlagsPage, LoginPage, ProductsListPage, SessionIndexPage, StartPage, UserDetailPage, WalletDetailPage, WalletOverviewPage } from "../../pages";
+import { AddSessionPage, CartPage, FeatureFlagsPage, LoginPage, ProductsListPage, SessionIndexPage, StartPage, UserDetailPage, UserTransactionsPage, WalletDetailPage, WalletOverviewPage } from "../../pages";
 import ProtectedRoute from "../protectedRoute/ProtectedRoute";
 import RouterOutlet from "../routerOutlet/RouterOutlet";
 import Footer from "../footer/Footer";
@@ -48,6 +46,7 @@ const Router: FC<Props> = ({ children }) => {
                                     <Route path=":id" element={ <WalletDetailPage /> } />
                                     <Route index element={ <WalletOverviewPage /> } />
                                 </Route>
+                                <Route path="transactions" element={ <UserTransactionsPage /> } />
                             </Route>
                             <Route path="flags">
                                 <Route index element={ <FeatureFlagsPage /> } />

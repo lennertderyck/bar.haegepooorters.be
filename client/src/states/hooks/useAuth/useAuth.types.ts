@@ -22,11 +22,12 @@ export type Action =
 | { type: 'AUTH_SUCCESS'; payload: AuthenticatedUser }
 | { type: 'AUTH_FAILED'; payload: Error }
 | { type: 'WALLET_SELECT'; payload: Wallet }
-| { type: 'SET_USER'; payload: AuthenticatedUser };
+| { type: 'USER_REFRESH'; payload: AuthenticatedUser };
 
 export type AuthFunctions = {
     login: (credentials: LoginCredentials) => void;
     loginRetry: () => void;
+    refreshUser: () => void;
     
     getSessionById: (id: ID) => Session | undefined;
     getSessionByEmail: (email: string) => Session | undefined;

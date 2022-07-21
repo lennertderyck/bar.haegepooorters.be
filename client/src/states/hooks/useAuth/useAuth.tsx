@@ -6,6 +6,7 @@ import { authContext } from "../../contexts/AuthContext/AuthContext"
 import { AuthFunctions, UseAuth } from "./useAuth.types";
 import { v4 as uuid } from 'uuid';
 import { Wallet } from "../../../types/wallet";
+import { info } from "console";
 
 const useAuth: UseAuth = () => {
     const { authState, dispatch } = useContext(authContext);
@@ -100,8 +101,27 @@ const useAuth: UseAuth = () => {
         request.catch((error: any) => dispatch({ type: 'AUTH_FAILED', payload: error }));
     }
     
-    const refreshUser = () => {
-        
+    const refreshUser: AuthFunctions['refreshUser'] = () => {
+        if (authState?.user) {
+            const request = axios((process.env.REACT_APP_API_URL || 'http://localhost:4000') + '/user', {
+                headers: {
+                    'Authorization': authState.user.token
+                }
+            });
+            
+            request.then((response) => {
+                const user = response.data.user;  
+                const sessionSaved = getSessionByEmail(user.email);
+                
+                if (sessionSaved) {
+                    updateSessionAccess(sessionSaved.id);
+                } else {
+                    storeNewSession(user);
+                }
+                
+                dispatch({ type: 'USER_REFRESH', payload: response.data })
+            });
+        }
     }
     
     const loginRetry = () => {
@@ -124,6 +144,7 @@ const useAuth: UseAuth = () => {
         getSessionByEmail,
         login,
         loginRetry,
+        refreshUser,
         selectWallet,
     };
 }

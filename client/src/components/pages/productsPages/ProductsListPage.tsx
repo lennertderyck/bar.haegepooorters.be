@@ -119,6 +119,7 @@ const ProductsListPage: FC<Props> = () => {
                 ...itemInCart
             }
         }).sort((A, B) => {
+            
         if (A.amount === 0) {
             return 1;
         } else if (B.amount === 0) {

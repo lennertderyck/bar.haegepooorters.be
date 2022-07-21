@@ -14,3 +14,5 @@ export type FeatureFlag = {
     default: boolean;
     description: string;
 }
+
+export type Intrest = number;

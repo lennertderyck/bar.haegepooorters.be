@@ -26,7 +26,9 @@ const WalletDetailPage: FC<Props> = ({ children }) => {
                 <div className="pre-heading">Wallet</div>
                 <div className="heading">{ selectedWallet.provider.label }</div>
             </div>
-            <WalletCard wallet={ selectedWallet } onlyBalance />
+            <button className="block w-full text-left" onClick={() => window.alert('topup')}>
+                <WalletCard wallet={ selectedWallet } onlyBalance />
+            </button>
         </div>
     )
 }

@@ -21,6 +21,12 @@ const flags: FeatureFlag[] = [
         default: false,
         description: 'Een donkere versie van de applicatie. Mogelijks werder nog niet alle elementen gewijzigd.'
     },
+    {
+        label: 'Product toevoeg popup',
+        id: 'prod_popup',
+        default: false,
+        description: 'Toon een popup wanneer een product toegevoegd wordt door op desbetreffende knop te klikken.'
+    },
 ]
 
 const FeatureFlagsPage: FC<Props> = ({ children }) => {

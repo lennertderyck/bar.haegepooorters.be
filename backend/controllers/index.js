@@ -113,7 +113,6 @@ export const login = async (req, res) => {
         }
     
     } catch (error) {
-        console.log(error)
         res.status(500).json({
             status: 'ERROR',
             error
@@ -175,6 +174,12 @@ export const registerTransaction = async (req, res) => {
             }
         })
     } else {
+        // Accumulate all requested items
+        // Multiply price by requested amount
+        // Reduce to final total price
+        // Check if wallet has enough credit
+        // Negative topup
+        
         const newTransaction = await Transaction.create({
             ...req.body,
         });
@@ -191,22 +196,45 @@ export const registerTransactionByUser = async (req, res) => {
                 message: 'Unauthorized'
             }
         })
-    } else {        
+    } else {
+        const accumulatedProductIds = req.body.items.reduce((acc, item) => {
+            return [...acc, item.product]
+        }, [])
+        
+        const accumulatedProductData = await Product.find({
+            '_id': { $in: accumulatedProductIds }
+        })
+        
+        const subtotal = accumulatedProductData.reduce((acc, item) => {
+            const requestedProductAmount = req.body.items.find(r => r.product === item.id).amount;
+            const productSubtotal = item.price * requestedProductAmount;
+            
+            return acc + productSubtotal;
+        }, 0)
+        
+        const incrementedValue = subtotal * -1
+        
+        await UserWallet.findOneAndUpdate(
+            {
+                _id: req.body.wallet,
+                user: req.user.id
+            }, 
+            {
+                $inc: {
+                    balance: incrementedValue
+                }
+            }, 
+            { new: true }
+        );
+                        
         const newTransaction = await Transaction.create({
             user: req.user.id,
             ...req.body,
         });
         
-        // const totalPrice = req.body.items.reduce((acc, item) => {
-        //     return acc - item.price * item.amount
-        // }, 0)
+        const populated = await newTransaction.populate('wallet')
         
-        const wallet = await UserWallet.findById(req.body.wallet);
-        await UserWallet.findByIdAndUpdate(req.body.id, {
-            balance: wallet.balance - 1
-        })
-        
-        res.json(newTransaction)
+        res.json(populated)
     }
 }
 
@@ -280,10 +308,12 @@ export const topupUserWallet = async (req, res) => {
             const updated = await UserWallet.findOneAndUpdate(
                 {
                     _id: req.params.id,
-                    user: req.user.id
+                    user: req.user.userId
                 }, 
                 {
-                    balance: wallet.balance + req.body.amount
+                    $inc: {
+                        balance: req.body.amount
+                    }
                 }, 
                 { new: true }
             );
@@ -297,5 +327,37 @@ export const topupUserWallet = async (req, res) => {
                 }
             })
         }
+    }
+}
+
+export const getUserDetails = async (req, res) => {
+    try {
+        console.log(req.user.userId)
+        const user = await User.findById(req.user.userId);
+    
+        if (!user) {
+            res.status(400).json({
+                status: 'ERROR',
+                error: {
+                    message: 'Could not find user'
+                }
+            })
+        
+            return;
+        }
+    
+        const token = hashJwtToken({ userId: user._id, role: user.role });
+        const wallets = await UserWallet.find();
+    
+        res.json({
+            user,
+            token,
+            wallets
+        })
+    } catch (error) {
+        res.status(500).json({
+            status: 'ERROR',
+            error
+        })
     }
 }

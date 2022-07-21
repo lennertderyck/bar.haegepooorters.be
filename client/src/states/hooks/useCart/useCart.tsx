@@ -12,7 +12,7 @@ import { initialState } from "./useCartReducer";
 
 const useCart: UseCart = () => {
     const endpoints = useEndPoints();
-    const { user, selectedWallet } = useAuth()
+    const { user, selectedWallet, refreshUser } = useAuth()
     const { cartState, dispatch } = useContext(cartContext);
     
     const addItem = (item: any) => {
@@ -83,6 +83,7 @@ const useCart: UseCart = () => {
                 payload: data
             });
             clearCart();
+            refreshUser();
         })
         
         transaction.catch((error: Error) => {

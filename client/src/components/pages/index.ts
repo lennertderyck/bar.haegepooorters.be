@@ -9,3 +9,4 @@ export { default as ProductsListPage } from './productsPages/ProductsListPage';
 export { default as CartPage } from './cartPage/CartPage';
 export { default as PwaInstallPage } from './pwaInstallPage/PwaInstallPage';
 export { default as FeatureFlagsPage } from './featureFlagsPage/FeatureFlagsPage';
+export { default as UserTransactionsPage } from './userPages/UserTransactionsPage/UserTransactionsPage';
