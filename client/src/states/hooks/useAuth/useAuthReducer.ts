@@ -7,7 +7,7 @@ const initialValues: AuthReducerState = {
     loading: false,
     error: null,
     isAuthenticated: false,
-    selectedWallet: cachedWallet ? JSON.parse(cachedWallet) : undefined,
+    selectedWallet: undefined,
 }
 
 const createReducer = () => (

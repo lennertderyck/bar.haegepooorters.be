@@ -102,7 +102,9 @@ export const login = async (req, res) => {
     
         const token = hashJwtToken({ userId: user._id, role: user.role });
         
-        const wallets = await UserWallet.find();
+        const wallets = await UserWallet.find({
+            user: user._id
+        });
         
         if (token) {
             res.json({
@@ -131,7 +133,7 @@ export const registerUserWallet = async (req, res) => {
     } else {
         const newWallet = await UserWallet.create({
             ...req.body,
-            user: req.user.id
+            user: req.user.userId
         });
         res.json(newWallet);
     }
@@ -284,7 +286,7 @@ export const getUserWallets = async (req, res) => {
         })
     } else {
         const wallets = await UserWallet.find({
-            user: req.user.id
+            user: req.user.userId
         });
         res.json(wallets);
     }
@@ -299,9 +301,11 @@ export const topupUserWallet = async (req, res) => {
             }
         })
     } else {
+        console.log(req.user);
+        
         const wallet = await UserWallet.findOne({
             _id: req.params.id,
-            user: req.user.id
+            user: req.user.userId
         });
         
         if (wallet) {
@@ -317,6 +321,8 @@ export const topupUserWallet = async (req, res) => {
                 }, 
                 { new: true }
             );
+            
+            console.log(updated);
             
             res.json(updated);
         } else {
@@ -347,13 +353,34 @@ export const getUserDetails = async (req, res) => {
         }
     
         const token = hashJwtToken({ userId: user._id, role: user.role });
-        const wallets = await UserWallet.find();
+        const wallets = await UserWallet.find({
+            user: user._id
+        });
     
         res.json({
             user,
             token,
             wallets
         })
+    } catch (error) {
+        res.status(500).json({
+            status: 'ERROR',
+            error
+        })
+    }
+}
+
+export const getTransactions = async (req, res) => {
+    const requestedId = req.params.id;
+    console.log(requestedId);
+    try {
+        if (requestedId) {
+            const transactions = await Transaction.findById(requestedId);
+            res.json(transactions)
+        } else {
+            const transactions = await Transaction.find();
+            res.json(transactions)
+        }
     } catch (error) {
         res.status(500).json({
             status: 'ERROR',

@@ -5,6 +5,9 @@ import AuthContextProvider from '../../states/contexts/AuthContext/AuthContext';
 import CartContextProvider from '../../states/contexts/CartContext/CartContext';
 import { useApp } from '../../states/hooks/useApp/useApp';
 import { Session } from '../../types/verification';
+import { ToastContainer } from 'react-toastify';
+
+import 'react-toastify/dist/ReactToastify.css';
 
 const sessions: Session[] = [
   {
@@ -48,6 +51,14 @@ function App() {
           <PwaInstallPage />
         } */}
         <Router />
+        <ToastContainer
+          position="bottom-center"
+          autoClose={ 5000 }
+          hideProgressBar={ true }
+          newestOnTop={ false }
+          rtl={ false }
+          draggable
+        />
       </CartContextProvider>
     </AuthContextProvider>
   </>;

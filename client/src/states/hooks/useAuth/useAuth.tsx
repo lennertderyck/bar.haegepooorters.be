@@ -1,7 +1,7 @@
 import axios from "axios";
 import { useCallback, useContext, useEffect, useState } from "react"
 import { ID } from "../../../types/general";
-import { LoginCredentials, RegisterCredentials, Session, User } from "../../../types/verification";
+import { AuthenticatedUser, LoginCredentials, RegisterCredentials, Session, User } from "../../../types/verification";
 import { authContext } from "../../contexts/AuthContext/AuthContext"
 import { AuthFunctions, UseAuth } from "./useAuth.types";
 import { v4 as uuid } from 'uuid';
@@ -87,8 +87,10 @@ const useAuth: UseAuth = () => {
         });
         
         request.then((response) => {
-            const user = response.data.user;  
+            const data = response.data as AuthenticatedUser;
+            const user = data.user;
             const sessionSaved = getSessionByEmail(user.email);
+            const cachedWalletId = window.localStorage.getItem('selectedWallet');
             
             if (sessionSaved) {
                 updateSessionAccess(sessionSaved.id);
@@ -97,6 +99,15 @@ const useAuth: UseAuth = () => {
             }
             
             dispatch({ type: 'AUTH_SUCCESS', payload: response.data })
+            
+            if (cachedWalletId) {
+                console.log('cachedWalletId', cachedWalletId)
+                const selectedWallet = data.wallets.find(w => w.id === cachedWalletId)
+                
+                if (selectedWallet) {
+                    dispatch({ type: 'WALLET_SELECT', payload: selectedWallet })
+                }
+            }
         });
         request.catch((error: any) => dispatch({ type: 'AUTH_FAILED', payload: error }));
     }
@@ -128,11 +139,13 @@ const useAuth: UseAuth = () => {
         dispatch({ type: 'AUTH_RETRY' });
     }
     
-    const selectWallet = useCallback((wallet: Wallet) => {
+    const selectWallet = useCallback((wallet: ID) => {
         window.localStorage.setItem('selectedWallet', JSON.stringify(wallet));
+        const foundWallet = authState.user?.wallets.find(w => w.id === wallet) as Wallet;
+        
         dispatch({
             type: 'WALLET_SELECT',
-            payload: wallet
+            payload: foundWallet
         })
     }, [authState.user])
     

@@ -46,12 +46,16 @@ const Router: FC<Props> = ({ children }) => {
                                     <Route path=":id" element={ <WalletDetailPage /> } />
                                     <Route index element={ <WalletOverviewPage /> } />
                                 </Route>
-                                <Route path="transactions" element={ <UserTransactionsPage /> } />
+                                <Route path="transactions" element={ <ProtectedRoute><RouterOutlet /></ProtectedRoute> }>
+                                    <Route path=":id" element={ <UserTransactionsPage /> } />
+                                    <Route index element={ <UserTransactionsPage /> } />
+                                </Route>
                             </Route>
                             <Route path="flags">
                                 <Route index element={ <FeatureFlagsPage /> } />
                                 <Route path=":id" element={ <FeatureFlagsPage /> } />
                             </Route>
+                            <Route path="shared/:type/:data" element={ <></> } />
                             <Route path="/" element={ <ProtectedRoute><StartPage /></ProtectedRoute> } />
                         </Route>
                     </SlideRoutes>

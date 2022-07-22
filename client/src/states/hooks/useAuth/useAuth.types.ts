@@ -32,7 +32,7 @@ export type AuthFunctions = {
     getSessionById: (id: ID) => Session | undefined;
     getSessionByEmail: (email: string) => Session | undefined;
     
-    selectWallet: (wallet: Wallet) => void;
+    selectWallet: (wallet: ID) => void;
 }
 
 export type UseAuthProperties = AuthState & AuthFunctions;

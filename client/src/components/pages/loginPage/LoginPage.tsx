@@ -20,7 +20,6 @@ const LoginPage: FC<Props> = ({ children }) => {
         setShowPinPad(false)
         
         const redirectedPage = (location?.state as any)?.from;
-        console.log(redirectedPage)
         if (redirectedPage) {
             navigate(redirectedPage);
         } else {

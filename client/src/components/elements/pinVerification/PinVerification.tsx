@@ -21,7 +21,6 @@ const PinVerification: FC<Props> = ({ session, onComplete, onError }) => {
     
     const handleOnChange = useCallback(() => {
         if (error) {
-            console.log('retry')
             loginRetry()
         }
     }, [ error ])

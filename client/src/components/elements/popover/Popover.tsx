@@ -5,7 +5,7 @@ import { useEffectOnce } from '../../../states/hooks/useEffectOnce/useEffectOnce
 import './Popover.scss';
 import { Icon } from '../../basics';
 
-type Props = {
+export type PopoverProps = {
     children?: any;
     active: boolean;
     onClose?: Function
@@ -25,7 +25,7 @@ const Backdrop = tw.div`
     bg-black bg-opacity-50
 `;
 
-const Popover: FC<Props> = ({ children, active, onClose }) => {
+const Popover: FC<PopoverProps> = ({ children, active, onClose }) => {
     const [ contentVisible, setContentVisible ] = useState(active);
     
     const handleClose = () => {

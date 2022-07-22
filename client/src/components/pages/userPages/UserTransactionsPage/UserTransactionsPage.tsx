@@ -1,6 +1,7 @@
 import { useAutoAnimate } from '@formkit/auto-animate/react';
 import dayjs from 'dayjs';
-import { FC, useState } from 'react';
+import { FC, useEffect, useState } from 'react';
+import { useNavigate, useParams } from 'react-router-dom';
 import useAuth from '../../../../states/hooks/useAuth/useAuth';
 import useAxiosBeta from '../../../../states/hooks/useAxiosBeta/useAxiosBeta';
 import useEndPoints from '../../../../states/hooks/useEndpoints/useEndpoints';
@@ -14,6 +15,7 @@ type Props = {
 };
 
 const UserTransactionsPage: FC<Props> = ({ children }) => {
+    const { id: requestedTransactionId } = useParams();
     const [ selectedTransaction, setSelectedTransaction ] = useState<Transaction>()
     const [ animationParent ] = useAutoAnimate<HTMLUListElement>()
     const endpoints = useEndPoints()
@@ -27,6 +29,21 @@ const UserTransactionsPage: FC<Props> = ({ children }) => {
     const sortedTransactions = transactions?.sort((a, b) => {
         return new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
     });
+    
+    useEffect(() => {
+        if (!!transactions && !!requestedTransactionId) {
+            const requestedTransaction = transactions.find((transaction) => transaction.id === requestedTransactionId);
+            setSelectedTransaction(requestedTransaction);
+        }
+    }, [ transactions, requestedTransactionId ])
+    
+    const selectTransaction = (transaction: Transaction) => {
+        setSelectedTransaction(transaction);
+    }
+    
+    const deselectTransaction = () => {
+        setSelectedTransaction(undefined)
+    }
     
     return (
         <>
@@ -43,7 +60,7 @@ const UserTransactionsPage: FC<Props> = ({ children }) => {
                         }, 0);
                         
                         return (
-                            <li className="py-4 border-b border-stone-300 last:border-b-0" onClick={() => setSelectedTransaction(transaction)}>
+                            <li className="py-4 border-b border-stone-300 last:border-b-0" onClick={() => selectTransaction(transaction)}>
                                 <div className="flex items-center justify-between">
                                     <h3>{ dayjs(transaction.createdAt).fromNow() }</h3>
                                     <h4><Pricfy>{ transactionTotal }</Pricfy></h4>
@@ -53,7 +70,7 @@ const UserTransactionsPage: FC<Props> = ({ children }) => {
                     })}
                 </ul>
             </div>
-            <Popover active={ !!selectedTransaction } onClose={() => setSelectedTransaction(undefined)}>
+            <Popover active={ !!selectedTransaction } onClose={ deselectTransaction }>
                 { !!selectedTransaction && <TransactionListItem transaction={selectedTransaction} />}
             </Popover>
         </>

@@ -9,6 +9,9 @@ import { Popover, ProductCard, WalletSelector } from '../../elements';
 import { useAutoAnimate } from '@formkit/auto-animate/react'
 import useAuth from '../../../states/hooks/useAuth/useAuth';
 import useEndPoints from '../../../states/hooks/useEndpoints/useEndpoints';
+import { toast } from 'react-toastify';
+import PurchaseProofPopover from './PurchaseProofPopover';
+import { ID } from '../../../types/general';
 
 type ProductDetailPopupProps = {
     selectedProduct: Product;
@@ -83,6 +86,7 @@ type Props = {
 };
 
 const ProductsListPage: FC<Props> = () => {
+    const [ purchaseProofId, setPurchaseProofId ] = useState<ID | undefined>()
     const endpoints = useEndPoints();
     const { selectedWallet } = useAuth();
     const [ showWalletSelect, setShowWalletSelect ] = useState(false);
@@ -106,8 +110,10 @@ const ProductsListPage: FC<Props> = () => {
     }
     
     const handlePurchaseConfirm = async () => {
-        await startPurchase();
+        const purchase = await startPurchase();
         setShowConfirm(false);
+        // toast('Aankoop geslaagd!')
+        setPurchaseProofId(purchase.data.id)
     }
         
     const mergedCartProducts = (data || [])
@@ -128,6 +134,8 @@ const ProductsListPage: FC<Props> = () => {
             return 0;
         }
     })
+        
+    const positiveBalance = !!selectedWallet && selectedWallet?.balance >= total;
     
     return (
         <div className="flex h-full flex-col">
@@ -187,7 +195,7 @@ const ProductsListPage: FC<Props> = () => {
                     </div>
                         
                     <Button 
-                        disabled={ !!selectedWallet && selectedWallet?.balance <= 0 }
+                        disabled={ !positiveBalance }
                         icon="arrow-right" 
                         onClick={ handlePurchase }
                     >
@@ -197,7 +205,7 @@ const ProductsListPage: FC<Props> = () => {
                         </div>
                     </Button>
                     
-                    { !!selectedWallet && selectedWallet?.balance <= 0 && (
+                    { !positiveBalance && (
                         <div className="text-red-600 text-center text-sm w-fit bg-red-100 py-1.5 px-3 mx-auto rounded-b-2xl">
                             Je hebt te weinig tegoed
                         </div>
@@ -240,6 +248,11 @@ const ProductsListPage: FC<Props> = () => {
                     Aankoop bevestigen
                 </Button>
             </Popover>
+            
+            <PurchaseProofPopover
+                transactionId={ purchaseProofId } 
+                onClose={() => setPurchaseProofId(undefined)}
+            />
         </div>
     )
 }

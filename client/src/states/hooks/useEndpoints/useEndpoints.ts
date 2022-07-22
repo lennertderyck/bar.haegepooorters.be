@@ -19,6 +19,10 @@ const useEndPoints = (overrideOrigin?: string) => {
             all: origin + '/products',
             byId: (id: ID) => origin + '/products/' + id,
         },
+        transactions: {
+            all: origin + '/transactions',
+            byId: (id: ID) => origin + '/transactions/' + id,
+        }
     }
 };
 

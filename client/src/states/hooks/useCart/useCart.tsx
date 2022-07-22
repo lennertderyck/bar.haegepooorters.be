@@ -1,9 +1,9 @@
-import axios from "axios";
+import axios, { AxiosPromise } from "axios";
 import { useEffect } from "react";
 import { useContext } from "react";
 import { Product } from "../../../types/bar";
 import { ID } from "../../../types/general";
-import { Transaction } from "../../../types/wallet";
+import { Purchase, Transaction } from "../../../types/wallet";
 import { cartContext } from "../../contexts/CartContext/CartContext";
 import useAuth from "../useAuth/useAuth";
 import useEndPoints from "../useEndpoints/useEndpoints";
@@ -62,7 +62,7 @@ const useCart: UseCart = () => {
             amount: item.amount
         }));
         
-        const transaction = axios(endpoints.user.purchase, 
+        const transaction: AxiosPromise<Transaction> = axios(endpoints.user.purchase, 
             { 
                 data: {
                     wallet: selectedWallet?.id,
