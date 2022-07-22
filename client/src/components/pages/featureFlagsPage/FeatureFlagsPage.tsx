@@ -24,8 +24,14 @@ const flags: FeatureFlag[] = [
     {
         label: 'Product toevoeg popup',
         id: 'prod_popup',
-        default: false,
+        default: true,
         description: 'Toon een popup wanneer een product toegevoegd wordt door op desbetreffende knop te klikken.'
+    },
+    {
+        label: 'Haptische feedback',
+        id: 'haptic',
+        default: true,
+        description: 'Genereer vibraties bij het uitvoeren van bepaalde acties. Bijvoorbeeld het aanklikken van uitgeschakelde knop.'
     },
 ]
 

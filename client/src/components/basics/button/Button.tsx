@@ -1,5 +1,7 @@
+import classNames from 'classnames';
 import { FC } from 'react';
 import tw from "tailwind-styled-components";
+import useHaptic from '../../../states/hooks/useHaptic/useHaptic';
 import Icon from '../icon/Icon';
 
 interface Props extends React.DetailedHTMLProps<React.ButtonHTMLAttributes<HTMLButtonElement>, HTMLButtonElement> {
@@ -23,9 +25,28 @@ const ButtonShim = tw.button`w-full
     ${(props: Props) => props.icon ? 'flex items-center justify-between px-4' : ''}
 `;
 
-const Button: FC<Props> = ({ children, ...otherProps }) => {
+const Button: FC<Props> = ({ children, disabled, onClick, ...otherProps }) => {
+    const [ vibrate ] = useHaptic('forbidden');
+    
+    const catchClickEvent = (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {        
+        if (onClick) {
+            if (disabled) {
+                vibrate();
+            } else {
+                onClick(event);
+            }
+        }
+    }
+    
     return (
-        <ButtonShim { ...otherProps }>
+        <ButtonShim
+            onClick={ catchClickEvent } 
+            className={ classNames(
+                disabled ? 'opacity-50' : 'opacity-100'
+            )}
+            aria-disabled={ disabled }
+            { ...otherProps }
+        >
             { otherProps.loading ? '...' : children }
             { otherProps.icon && <Icon name={ otherProps.icon } />}
         </ButtonShim>
