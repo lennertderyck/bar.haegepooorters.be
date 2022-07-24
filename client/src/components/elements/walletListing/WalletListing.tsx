@@ -19,12 +19,17 @@ const WalletListing: FC<Props> = () => {
             'Authorization': 'Bearer ' + user?.token
         }
     });
-    const walletsState = useAxiosBeta<WalletProvider[]>(endpoints.creditProviders.all);
+    const walletProviderStates = useAxiosBeta<WalletProvider[]>(endpoints.creditProviders.all);
+    
+    const createdWallets = wallets?.filter(wallet => {
+        const isCreated = walletProviderStates.data?.find(provider => provider.id === wallet.provider.id);
+        return isCreated;
+    });
 
     return (
         <div>
             {
-                wallets && walletsState?.data?.map((provider) => {
+                wallets && walletProviderStates?.data?.map((provider) => {
                     const createdWallet = wallets?.find((w) => w.provider.id === provider.id);
                     
                     if (createdWallet) { return ( 

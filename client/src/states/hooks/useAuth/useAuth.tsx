@@ -104,6 +104,8 @@ const useAuth: UseAuth = () => {
                 console.log('cachedWalletId', cachedWalletId)
                 const selectedWallet = data.wallets.find(w => w.id === cachedWalletId)
                 
+                console.log('selectedWallet', selectedWallet)
+                
                 if (selectedWallet) {
                     dispatch({ type: 'WALLET_SELECT', payload: selectedWallet })
                 }
@@ -140,7 +142,7 @@ const useAuth: UseAuth = () => {
     }
     
     const selectWallet = useCallback((wallet: ID) => {
-        window.localStorage.setItem('selectedWallet', JSON.stringify(wallet));
+        window.localStorage.setItem('selectedWallet', wallet);
         const foundWallet = authState.user?.wallets.find(w => w.id === wallet) as Wallet;
         
         dispatch({

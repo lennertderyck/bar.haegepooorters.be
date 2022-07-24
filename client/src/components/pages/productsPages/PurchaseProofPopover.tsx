@@ -8,7 +8,7 @@ import { Transaction } from '../../../types/wallet';
 import { QR } from '../../basics';
 import { Popover } from '../../elements';
 import { PopoverProps } from '../../elements/popover/Popover';
-import TransactionListItem from '../userPages/UserTransactionsPage/TransactionListItem';
+import TransactionSummary from '../userPages/UserTransactionsPage/TransactionSummary';
 
 interface Props extends Omit<PopoverProps, 'active'> {
     transactionId?: ID | undefined;
@@ -23,7 +23,7 @@ const TransactionShim: FC<TransactionShim> = ({ transactionId }) => {
     const { data } = useAxiosBeta<Transaction>(endpoints.transactions.byId(transactionId));
     
     if (data) return (
-        <TransactionListItem transaction={ data } showTimeStamp={ false } />
+        <TransactionSummary transaction={ data } showTimeStamp={ false } />
     )
     else return <>Loading...</>
 }

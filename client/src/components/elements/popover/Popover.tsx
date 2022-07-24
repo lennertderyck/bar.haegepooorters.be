@@ -67,7 +67,7 @@ const Popover: FC<PopoverProps> = ({ children, active, onClose }) => {
                     appear
                     onExited={ handleContentExitWithDelay }
                 >
-                    <div className="popover relative bg-white h-fit w-full p-8">
+                    <div className="popover relative bg-white h-fit w-full p-8 max-h-screen overflow-scroll">
                         <button 
                             className="absolute top-4 right-3 justify-end rounded-full p-1"
                             onClick={ exitWithEffect }

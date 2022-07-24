@@ -1,4 +1,4 @@
-import { FC } from 'react';
+import { FC, useState } from 'react';
 import { WalletProvider } from '../../../types/wallet';
 import { Icon } from '../../basics';
 import useEndPoints from '../../../states/hooks/useEndpoints/useEndpoints';
@@ -12,11 +12,13 @@ type Props = {
 };
 
 const CreateWalletCard: FC<Props> = ({ provider, onCreated, onError }) => {
+    const [ isCreating, setIsCreating ] = useState(false);
     const { user } = useAuth();
     const endpoints = useEndPoints();
     
     const addWalletToUser = async () => {
         try {
+            setIsCreating(true);
             await axios(endpoints.user.addWallet, { 
                 method: 'POST',
                 data: {
@@ -28,10 +30,12 @@ const CreateWalletCard: FC<Props> = ({ provider, onCreated, onError }) => {
             });
             if (!!onCreated) { 
                 onCreated()
+                setIsCreating(false);
             }
         } catch {
             if (!!onError) {
                 onError()
+                setIsCreating(false);
             } 
         }  
     }
@@ -45,8 +49,8 @@ const CreateWalletCard: FC<Props> = ({ provider, onCreated, onError }) => {
                 <h3 className="text-xl text-stone-500">{ provider.label }</h3>
             </div>
             <div className="label text-stone-500 flex items-center mt-1">
-                <span>Wallet aanmaken</span>
-                <Icon name="add" size="1rem" className="ml-1" />
+                <span>{ isCreating ? 'Wallet aanmaken ...' : 'Deelnemen aan wallet' }</span>
+                { !isCreating && <Icon name="add" size="1rem" className="ml-1" />}
             </div>
         </div>
     )

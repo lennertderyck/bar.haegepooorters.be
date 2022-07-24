@@ -14,10 +14,10 @@ const WalletCard: FC<Props> = ({ wallet, onlyBalance }) => {
                 { !onlyBalance && <h4>{ wallet.provider.label }</h4>}
                 <h3 className="text-4xl"><Pricify>{ wallet.balance || 0 }</Pricify></h3>
             </div>
-            <div className="label text-stone-500 flex items-center mt-3">
+            {/* <div className="label text-stone-500 flex items-center mt-3">
                 <span>Saldo toevoegen</span>
                 <Icon name="arrow-right" size="1rem" className="ml-1" />
-            </div>
+            </div> */}
         </div>
     )
 }

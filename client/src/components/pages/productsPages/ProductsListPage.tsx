@@ -135,7 +135,8 @@ const ProductsListPage: FC<Props> = () => {
         }
     })
         
-    const positiveBalance = !!selectedWallet && selectedWallet?.balance >= total;
+    const hasWalletSelected = !!selectedWallet;
+    const positiveBalance = (selectedWallet?.balance || 0) >= total;
     
     return (
         <div className="flex h-full flex-col">
@@ -195,7 +196,7 @@ const ProductsListPage: FC<Props> = () => {
                     </div>
                         
                     <Button 
-                        disabled={ !positiveBalance }
+                        disabled={ (hasWalletSelected && !positiveBalance) }
                         icon="arrow-right" 
                         onClick={ handlePurchase }
                     >
@@ -205,7 +206,7 @@ const ProductsListPage: FC<Props> = () => {
                         </div>
                     </Button>
                     
-                    { !positiveBalance && (
+                    { (hasWalletSelected && !positiveBalance) && (
                         <div className="text-red-600 text-center text-sm w-fit bg-red-100 py-1.5 px-3 mx-auto rounded-b-2xl">
                             Je hebt te weinig tegoed
                         </div>

@@ -261,6 +261,8 @@ export const getAllCreditProviders = async (req, res) => {
 }
 
 export const getTransactionsByUser = async (req, res) => {
+    const limit = req?.query?.limit
+    
     if (!req.user) {
         res.status(401).json({
             status: 'ERROR',
@@ -271,6 +273,8 @@ export const getTransactionsByUser = async (req, res) => {
     } else {
         const transactions = await Transaction.find({
             user: req.user.id
+        }, null, { limit }).sort({
+            createdAt: "descending"
         });
         res.json(transactions);
     }
@@ -372,7 +376,7 @@ export const getUserDetails = async (req, res) => {
 
 export const getTransactions = async (req, res) => {
     const requestedId = req.params.id;
-    console.log(requestedId);
+    
     try {
         if (requestedId) {
             const transactions = await Transaction.findById(requestedId);
