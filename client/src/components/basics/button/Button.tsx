@@ -10,6 +10,7 @@ interface Props extends React.DetailedHTMLProps<React.ButtonHTMLAttributes<HTMLB
     promise?: Promise<any>;
     secondary?: boolean;
     simple?: boolean;
+    small?: boolean;
     icon?: string;
 };
 
@@ -17,6 +18,7 @@ const ButtonShim = tw.button`w-full
     rounded-full
     uppercase
     tracking-widest
+    ${(props: Props) => props.small ? 'text-sm' : 'text-base' }
     ${(props: Props) => props.disabled ? 'opacity-50' : 'opacity-100' }
     ${(props: Props) => props.secondary ? 'bg-white font-medium' : 'bg-black text-white'}
     ${(props: Props) => !props.simple ? 'py-3 border' : 'py-0'}

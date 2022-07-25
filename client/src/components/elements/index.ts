@@ -11,3 +11,4 @@ export { default as ProductCard } from './product/ProductCard';
 export { default as WalletSelector } from './walletSelector/WalletSelector';
 export { default as CreateWalletCard } from './createWalletCard/CreateWalletCard';
 export { default as TransactionList } from './transactions/TransactionList';
+export { default as NotificationPermissionPopover } from './notificationPermissionPopover/NotificationPermissionPopover';

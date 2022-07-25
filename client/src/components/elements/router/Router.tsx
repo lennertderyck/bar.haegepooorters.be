@@ -10,6 +10,7 @@ import RouterOutlet from "../routerOutlet/RouterOutlet";
 import Footer from "../footer/Footer";
 import styled from "styled-components";
 import useAuth from "../../../states/hooks/useAuth/useAuth";
+import NotificationPermissionPopover from "../notificationPermissionPopover/NotificationPermissionPopover";
 
 type Props = {
     children?: any;
@@ -68,9 +69,12 @@ const Router: FC<Props> = ({ children }) => {
                     </div>
                 )} */}
                 { user && (
-                    <div className="flex justify-center pt-3">
-                        <Footer />
-                    </div>
+                    <>
+                        <div className="flex justify-center pt-3">
+                            <Footer />
+                        </div>
+                        <NotificationPermissionPopover />
+                    </>
                 )}
             </div>
         </>

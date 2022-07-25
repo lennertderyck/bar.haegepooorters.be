@@ -1,5 +1,5 @@
 import React from 'react';
-import { Router } from '../../components/elements';
+import { NotificationPermissionPopover, Router } from '../../components/elements';
 import { PwaInstallPage } from '../../components/pages';
 import AuthContextProvider from '../../states/contexts/AuthContext/AuthContext';
 import CartContextProvider from '../../states/contexts/CartContext/CartContext';
