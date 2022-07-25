@@ -140,3 +140,17 @@ export function unregister() {
       });
   }
 }
+
+// const notify = new Notification('Ging je iets kopen?', {
+//   body: 'Er zitten nog items in je winkelmandje. Ga verder met je bestelling.',
+//   actions: [
+//     {
+//       title: 'Winkelmandje leegmaken',
+//       action: 'empty_cart',
+//     },
+//     {
+//       title: 'Bestelling afwerken',
+//       action: 'proceed',
+//     }
+//   ]
+// })
