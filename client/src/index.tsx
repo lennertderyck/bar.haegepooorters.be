@@ -38,8 +38,19 @@ root.render(
 // Learn more about service workers: https://cra.link/PWA
 try {
   const register = await serviceWorkerRegistration.register();
-  console.log(register);
-  register?.showNotification('Hello')
+  const notify = register?.showNotification('Ging je iets kopen?', {
+    body: 'Er zitten nog items in je winkelmandje. Ga verder met je bestelling.',
+    actions: [
+      {
+        title: 'Winkelmandje leegmaken',
+        action: 'empty_cart',
+      },
+      {
+        title: 'Bestelling afwerken',
+        action: 'proceed',
+      }
+    ]
+  })
 } catch (error) {
   console.log(error); 
 }
