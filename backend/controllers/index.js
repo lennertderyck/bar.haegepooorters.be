@@ -98,6 +98,8 @@ export const login = async (req, res) => {
                     message: 'Invalid credentials'
                 }
             })
+            
+            return;
         }
     
         const token = hashJwtToken({ userId: user._id, role: user.role });
