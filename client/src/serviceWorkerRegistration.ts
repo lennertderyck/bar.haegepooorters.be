@@ -27,6 +27,26 @@ type Config = {
   onUpdate?: (registration: ServiceWorkerRegistration) => void;
 };
 
+const cartNotify = (register: ServiceWorkerRegistration) => {
+  window.addEventListener('unload', () => {
+    if (Notification.permission === 'granted') {
+      const notify = register?.showNotification('Ging je iets kopen?', {
+        body: 'Er zitten nog items in je winkelmandje. Ga verder met je bestelling.',
+        actions: [
+          {
+            title: 'Winkelmandje leegmaken',
+            action: 'empty_cart',
+          },
+          {
+            title: 'Bestelling afwerken',
+            action: 'proceed',
+          }
+        ]
+      })
+    }
+  })
+}
+
 export const register = (config?: Config) => {
   if (process.env.NODE_ENV === 'production' && 'serviceWorker' in navigator) {
     // The URL constructor is available in all browsers that support SW.
@@ -52,6 +72,9 @@ export const register = (config?: Config) => {
             // Is not localhost. Just register service worker
             const registration = await registerValidSW(swUrl, config);
             resolve(registration);
+            if (registration) {
+              cartNotify(registration);
+            }
           }
         } catch (error) {
           reject(error);

@@ -5,6 +5,7 @@ const useEndPoints = (overrideOrigin?: string) => {
     
     return {
         user: {
+            all: origin + '/users',
             login: origin + '/user/login',
             purchase: origin + '/user/purchase',
             wallets: origin + '/user/wallets',

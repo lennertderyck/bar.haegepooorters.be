@@ -392,3 +392,34 @@ export const getTransactions = async (req, res) => {
         })
     }
 }
+
+export const getUsers = async (req, res) => {
+    try {
+        const users = await User.find().populate('wallets');
+        console.log(users[0])
+        res.json(users);
+    } catch (error) {
+        res.status(500).json({
+            status: 'ERROR',
+            error
+        })
+    }
+}
+
+export const createUser = async (req, res) => {
+    try {
+        const { pin } = req.body;
+        const hashedPin = bcrypt.hashSync(pin, 12);
+        
+        const newUser = await User.create({
+            ...req.body,
+            pin: hashedPin
+        });
+        res.json(newUser);
+    } catch (error) {
+        res.status(500).json({
+            status: 'ERROR',
+            error
+        })
+    }
+}

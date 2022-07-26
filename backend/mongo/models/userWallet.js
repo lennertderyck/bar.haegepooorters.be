@@ -27,6 +27,7 @@ const UserWalletSchema = new Schema({
     },
     deleted_at: Date,
 })
+
 .plugin(softDelete)
 .plugin(toJson);
 

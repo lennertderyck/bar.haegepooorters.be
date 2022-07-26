@@ -1,4 +1,4 @@
-import { addCategory, addProduct, registerUserWallet, getProducts, getWallet, login, register, registerCreditProvider, registerTransaction, status, getTransactionsByUser, getAllCreditProviders, getUserWallets, registerTransactionByUser, topupUserWallet, getUserDetails, getTransactions } from "../controllers/index.js";
+import { addCategory, addProduct, registerUserWallet, getProducts, getWallet, login, register, registerCreditProvider, registerTransaction, status, getTransactionsByUser, getAllCreditProviders, getUserWallets, registerTransactionByUser, topupUserWallet, getUserDetails, getTransactions, getUsers, createUser } from "../controllers/index.js";
 import app from "../server.js";
 
 app.get('/', status);
@@ -28,4 +28,10 @@ app.post('/user/wallet/:id/topup', topupUserWallet);
 
 app.get('/user/transactions', getTransactionsByUser);
 app.get('/user/wallets', getUserWallets);
+
+/**
+ * BACKOFFICE
+ */
+app.get('/users', getUsers);
+app.post('/users', createUser);
 
