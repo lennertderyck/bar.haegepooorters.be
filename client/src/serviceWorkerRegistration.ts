@@ -30,11 +30,32 @@ type Config = {
 const storedCartValues = localStorage.getItem('cart');
 const cart = storedCartValues ? JSON.parse(storedCartValues) : [];
 
+window.self.addEventListener('notificationclick', (event: any) => {
+  console.log('notificationclick', event);
+  
+  if (event.notification.tag !== 'cartNotice') {
+    return;
+  }
+  
+  event.notification.close();
+  switch (event.action) {
+    case 'empty_cart':
+      localStorage.setItem('cart', JSON.stringify([]));
+      break;
+    case 'proceed':
+      window.open('app/bar', '_blank');
+      break;
+    default:
+      break;
+  }
+})
+
 const cartNotify = (register: ServiceWorkerRegistration) => {
-  window.addEventListener('unload', () => {
+  window.addEventListener('unload', async () => {
     
     if (Notification.permission === 'granted' && cart.length > 0) {
-      const notify = register?.showNotification('Ging je iets kopen?', {
+      await register?.showNotification('Ging je iets kopen?', {
+        tag: 'cartNotice',
         body: 'Er zitten nog items in je winkelmandje. Ga verder met je bestelling.',
         actions: [
           {
