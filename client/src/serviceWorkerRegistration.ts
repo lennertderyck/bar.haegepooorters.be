@@ -30,6 +30,7 @@ type Config = {
 const cartNotify = (register: ServiceWorkerRegistration) => {
   window.addEventListener('unload', () => {
     if (Notification.permission === 'granted') {
+      
       const notify = register?.showNotification('Ging je iets kopen?', {
         body: 'Er zitten nog items in je winkelmandje. Ga verder met je bestelling.',
         actions: [

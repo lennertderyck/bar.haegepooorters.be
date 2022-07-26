@@ -152,7 +152,7 @@ export const getWallet = async (req, res) => {
         })
     } else {
         const wallet = await UserWallet.find({
-            user: req.user.id
+            user: req.user.userId
         })
                 
         res.json(wallet);
@@ -214,12 +214,12 @@ export const registerTransactionByUser = async (req, res) => {
             return acc + productSubtotal;
         }, 0)
         
-        const incrementedValue = subtotal * -1
+        const incrementedValue = subtotal * -1;
         
         await UserWallet.findOneAndUpdate(
             {
                 _id: req.body.wallet,
-                user: req.user.id
+                user: req.user.userId
             }, 
             {
                 $inc: {
@@ -230,7 +230,7 @@ export const registerTransactionByUser = async (req, res) => {
         );
                         
         const newTransaction = await Transaction.create({
-            user: req.user.id,
+            user: req.user.userId,
             ...req.body,
         });
         
@@ -272,7 +272,7 @@ export const getTransactionsByUser = async (req, res) => {
         })
     } else {
         const transactions = await Transaction.find({
-            user: req.user.id
+            user: req.user.userId
         }, null, { limit }).sort({
             createdAt: "descending"
         });
@@ -325,9 +325,7 @@ export const topupUserWallet = async (req, res) => {
                 }, 
                 { new: true }
             );
-            
-            console.log(updated);
-            
+                        
             res.json(updated);
         } else {
             res.status(401).json({
@@ -342,7 +340,6 @@ export const topupUserWallet = async (req, res) => {
 
 export const getUserDetails = async (req, res) => {
     try {
-        console.log(req.user.userId)
         const user = await User.findById(req.user.userId);
     
         if (!user) {
@@ -369,7 +366,7 @@ export const getUserDetails = async (req, res) => {
     } catch (error) {
         res.status(500).json({
             status: 'ERROR',
-            error
+            error: error.message
         })
     }
 }

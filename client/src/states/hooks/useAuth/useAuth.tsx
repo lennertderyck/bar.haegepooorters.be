@@ -118,7 +118,7 @@ const useAuth: UseAuth = () => {
         if (authState?.user) {
             const request = axios((process.env.REACT_APP_API_URL || 'http://localhost:4000') + '/user', {
                 headers: {
-                    'Authorization': authState.user.token
+                    'Authorization': 'Bearer ' + authState.user.token
                 }
             });
             
