@@ -27,9 +27,6 @@ type Config = {
   onUpdate?: (registration: ServiceWorkerRegistration) => void;
 };
 
-const storedCartValues = localStorage.getItem('cart');
-const cart = storedCartValues ? JSON.parse(storedCartValues) : [];
-
 window.self.addEventListener('notificationclick', (event: any) => {
   console.log('notificationclick', event);
   
@@ -52,8 +49,8 @@ window.self.addEventListener('notificationclick', (event: any) => {
 
 const cartNotify = (register: ServiceWorkerRegistration) => {
   window.addEventListener('unload', async () => {
-    
-    console.log('cart.length', cart.length);
+    const storedCartValues = localStorage.getItem('cart');
+    const cart = storedCartValues ? JSON.parse(storedCartValues) : [];
     
     if (Notification.permission === 'granted' && cart.length > 0) {
       await register?.showNotification('Ging je iets kopen?', {
