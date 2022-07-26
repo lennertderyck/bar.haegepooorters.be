@@ -27,10 +27,13 @@ type Config = {
   onUpdate?: (registration: ServiceWorkerRegistration) => void;
 };
 
+const storedCartValues = localStorage.getItem('cart');
+const cart = storedCartValues ? JSON.parse(storedCartValues) : [];
+
 const cartNotify = (register: ServiceWorkerRegistration) => {
   window.addEventListener('unload', () => {
-    if (Notification.permission === 'granted') {
-      
+    
+    if (Notification.permission === 'granted' && cart.length > 0) {
       const notify = register?.showNotification('Ging je iets kopen?', {
         body: 'Er zitten nog items in je winkelmandje. Ga verder met je bestelling.',
         actions: [
