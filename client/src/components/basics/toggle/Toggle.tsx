@@ -1,18 +1,19 @@
-import { FC, useRef } from 'react';
+import { ChangeEvent, FC, useRef } from 'react';
 
 type Props = React.DetailedHTMLProps<React.InputHTMLAttributes<HTMLInputElement>, HTMLInputElement>;
 
-const Toggle: FC<Props> = ({ ...otherProps }) => { 
+const Toggle: FC<Props> = ({ onChange, defaultChecked, ...otherProps }) => { 
     const checkboxRef = useRef<any>();
     
     const toggle = (event: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
         const $checkbox = checkboxRef.current as HTMLInputElement;
         $checkbox.checked = $checkbox.checked!;
+        onChange && onChange(event as unknown as ChangeEvent<HTMLInputElement>);
     }
     
     return (
         <label className="block">
-            <input { ...{ otherProps, type: "checkbox" }} className="hidden peer" ref={ checkboxRef } />
+            <input { ...{ otherProps, type: "checkbox" }} defaultChecked={ defaultChecked } className="hidden peer" ref={ checkboxRef } />
             <div
                 onClick={ toggle }
                 className="border-2 w-fit rounded-full py-1 border-stone-400 pl-0 pr-7 peer-checked:border-black peer-checked:pl-7 peer-checked:pr-0"

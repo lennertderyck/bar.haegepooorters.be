@@ -11,8 +11,8 @@ export interface Record {
 export type FeatureFlag = {
     label: string;
     id: string;
-    default: boolean;
     description: string;
+    state: boolean;
 }
 
 export type Intrest = number;

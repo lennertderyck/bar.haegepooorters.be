@@ -1,6 +1,8 @@
 import { FC, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
+import useFlags from '../../../states/hooks/useFlags/useFlags';
 import { FeatureFlag } from '../../../types/general';
+import flags from '../../../utils/data/flags';
 import { Toggle } from '../../basics';
 import { Popover } from '../../elements';
 
@@ -8,41 +10,15 @@ type Props = {
     children?: any;
 };
 
-const flags: FeatureFlag[] = [
-    {
-        label: 'Desktop support',
-        id: 'desktop_support',
-        default: false,
-        description: 'Maak gebruik van de app ook mogelijk op desktop in een experimentele omgeving.'
-    },
-    {
-        label: 'Donkere modus',
-        id: 'dark_mode',
-        default: false,
-        description: 'Een donkere versie van de applicatie. Mogelijks werder nog niet alle elementen gewijzigd.'
-    },
-    {
-        label: 'Product toevoeg popup',
-        id: 'prod_popup',
-        default: true,
-        description: 'Toon een popup wanneer een product toegevoegd wordt door op desbetreffende knop te klikken.'
-    },
-    {
-        label: 'Haptische feedback',
-        id: 'haptic',
-        default: true,
-        description: 'Genereer vibraties bij het uitvoeren van bepaalde acties. Bijvoorbeeld het aanklikken van uitgeschakelde knop.'
-    },
-]
-
 const FeatureFlagsPage: FC<Props> = ({ children }) => {
+    const { flags, flagById, toggleFlag } = useFlags();
     const params = useParams<{ id: string }>()
     
-    const requestedFlagFromUrl = flags.find((flag) => flag.id === params?.id) || null;
-    const [ requestedFlag, setRequestedFlag ] = useState<FeatureFlag | null>(requestedFlagFromUrl);
+    const requestedFlagFromUrl = flags.find(flag => flag.id === params.id);
+    const [ requestedFlag, setRequestedFlag ] = useState<FeatureFlag | undefined>(requestedFlagFromUrl);
     
     const handleDetailPopoverClose = () => {
-        setRequestedFlag(null)
+        setRequestedFlag(undefined)
     }
     
     return (
@@ -64,7 +40,7 @@ const FeatureFlagsPage: FC<Props> = ({ children }) => {
                                         <h4 className="text-lg">{ flag.label }</h4>
                                         {/* <p className="text-stone-500 text-sm">{ flag.description }</p> */}
                                     </div>
-                                    <div className="label text-stone-400">Ingeschakeld</div>
+                                    <div className="label text-stone-400">{ flag.state ? 'Ingeschakeld' : 'Uitgeschakeld' }</div>
                                 </div>
                             </li>
                         ))}
@@ -72,17 +48,22 @@ const FeatureFlagsPage: FC<Props> = ({ children }) => {
                 </div>
             </div>
             <Popover active={ !!requestedFlag } onClose={ handleDetailPopoverClose }>
-                <div className="mb-4">
-                    <div className="text-xl">{ requestedFlag?.label }</div>
-                    <p className="text-stone-500 text-sm">{ requestedFlag?.description }</p>
-                </div>
-                <label className="flex items-center gap-4">
-                    <Toggle 
-                        defaultChecked={ requestedFlag?.default } 
-                        name={ requestedFlag?.id }
-                    />
-                    <span>In-/uitschakelen</span>
-                </label>
+               { !!requestedFlag && (
+                <>
+                    <div className="mb-4">
+                        <div className="text-xl">{ requestedFlag?.label }</div>
+                        <p className="text-stone-500 text-sm">{ requestedFlag?.description }</p>
+                    </div>
+                    <label className="flex items-center gap-4">
+                        <Toggle 
+                            onChange={() => toggleFlag(requestedFlag.id, !requestedFlag.state)}
+                            defaultChecked={ requestedFlag?.state } 
+                            name={ requestedFlag?.id }
+                        />
+                        <span>{ requestedFlag?.state ? 'Ingeschakeld' : 'Uitgeschakeld' }</span>
+                    </label>
+                </>
+               )}
             </Popover>
         </>
     )
