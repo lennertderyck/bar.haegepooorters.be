@@ -1,7 +1,8 @@
 import { FC } from 'react';
 import { Link } from 'react-router-dom';
-import useAuth from '../../../states/hooks/useAuth/useAuth';
-import { Icon } from '../../basics';
+import useAuth from '../../../../states/hooks/useAuth/useAuth';
+import { Icon } from '../../../basics';
+import AccountSwitchButton from './AccountSwitchButton';
 
 type Props = {
     children?: any;
@@ -16,6 +17,7 @@ const UserDetailPage: FC<Props> = ({ children }) => {
             subLabel: 'lennyderyck@gmail.com',
             icon: 'account-circle',
             route: '/user/account',
+            append: <AccountSwitchButton />
         },
         {
             label: 'Wallets',
@@ -28,6 +30,11 @@ const UserDetailPage: FC<Props> = ({ children }) => {
             icon: 'history',
             route: '/user/transactions',
         },
+        {
+            label: 'Flags',
+            icon: 'flag',
+            route: '/flags',
+        },
     ]
     
     return (
@@ -36,14 +43,18 @@ const UserDetailPage: FC<Props> = ({ children }) => {
                 <div className="pre-heading">Hi { user?.user.firstName }</div>
                 <div className="heading">Account</div>
             </div>
-            { menuItems.map(({ label, icon, route, subLabel }) => (
-                <Link to={ route } className="w-full border-b border-stone-200 flex items-baseline py-4">
+            { menuItems.map(({ label, icon, route, subLabel, append }) => (
+                <div className="w-full border-b border-stone-200 flex items-baseline py-4">
                     <Icon name={ icon } className="mr-4 translate-y-1" />
-                    <div>
-                        <span className="block text-lg leading-5">{ label }</span>
-                        <span className="block text-stone-400">{ subLabel }</span>
+                    <div className="w-full">
+                        <Link to={ route } className="w-full">
+                            <span className="block text-lg leading-5">{ label }</span>
+                            <span className="block text-stone-400">{ subLabel }</span>
+                        </Link>
+                        
+                        { append }
                     </div>
-                </Link>
+                </div>
             ))}
         </div>
     )

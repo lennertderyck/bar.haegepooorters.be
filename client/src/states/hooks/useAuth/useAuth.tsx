@@ -7,75 +7,28 @@ import { AuthFunctions, UseAuth } from "./useAuth.types";
 import { v4 as uuid } from 'uuid';
 import { Wallet } from "../../../types/wallet";
 import { info } from "console";
+import useSessionStore from "../../stores/useSessionStore";
+import { useNavigate } from "react-router-dom";
 
 const useAuth: UseAuth = () => {
+    const navigate = useNavigate();
+    const { stored: sessions, sessionById, sessionByUserParam, registerSession, updateSession, updateSessionAccess } = useSessionStore();
     const { authState, dispatch } = useContext(authContext);
     
-    const sessions: Session[] = JSON.parse(window.localStorage.getItem('sessions') || '[]');
-    
-    const getStoredSessions = (): Session[] => {
-        return JSON.parse(window.localStorage.getItem('sessions') || '[]');
-    }
-    
-    const getSessionById = (id: string): Session | undefined => {
-        return getStoredSessions().find(session => session.id === id);
-    }
-    
     const getSessionByEmail = (email: string): Session | undefined => {
-        return getStoredSessions().find(session => session.user.email === email);
+        return sessions.find(session => session.user.email === email);
     }
     
     const getLatestSession = () => {
-        const sortedSession = getStoredSessions().sort((a, b) => {
+        const sortedSession = sessions.sort((a, b) => {
             return new Date(a.lastAccess).getTime() - new Date(b.lastAccess).getTime()
         });
         
         return sortedSession?.[0];
     }
     
-    const storeSessions = (sessions: Session[]) => {
-        window.localStorage.setItem('sessions', JSON.stringify(sessions));
-    }
-    
-    const createNewSession = (user: User): Session => {
-        const session: Session = {
-            id: uuid(),
-            user,
-            lastAccess: new Date().toISOString()
-        }
-        
-        return session;
-    }
-    
     const storeNewSession = (user: User) => {
-        const newSession = createNewSession(user);
-        const storedSessions = getStoredSessions();
-        return storeSessions([...storedSessions, newSession]);
-    }
-    
-    const updateSession = (update: Session) => {
-        const newSessions = sessions.map(session => {
-            if (session.id === update.id) {
-                return {
-                    ...session,
-                    ...update
-                };
-            } else {
-                return session;
-            }
-        })
-        storeSessions(newSessions);
-    }
-    
-    const updateSessionAccess = (id: ID) => {
-        const session = getSessionById(id);
-        
-        if (session) {
-            updateSession({
-                ...session,
-                lastAccess: new Date().toISOString()
-            })
-        }
+        registerSession(user);
     }
     
     const login: AuthFunctions['login'] = (credentials: LoginCredentials) => {
@@ -151,14 +104,22 @@ const useAuth: UseAuth = () => {
         })
     }, [authState.user])
     
+    const logout: AuthFunctions['logout'] = (currentPageUrl?: string) => {
+        dispatch({
+            type: 'AUTH_INITIAL',
+        })
+        navigate('/session');
+    }
+    
     return {
         ...authState,
         sessions,
-        get latestSession() {  return getLatestSession() },
-        getSessionById,
+        get latestSession() { return getLatestSession() },
+        getSessionById: sessionById,
         getSessionByEmail,
         login,
         loginRetry,
+        logout,
         refreshUser,
         selectWallet,
     };

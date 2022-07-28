@@ -52,7 +52,7 @@ const LoginPage: FC<Props> = ({ children }) => {
         </div>
         
         <Popover active={ showPinPad } onClose={() => setShowPinPad(false)}>
-            <PinVerification session={ selectedSession } onComplete={ handleVerificationComplete } onError={ handleVerificationError } />
+            <PinVerification session={{ email: selectedSession.user.email }} onComplete={ handleVerificationComplete } onError={ handleVerificationError } />
         </Popover>
     </>
 }

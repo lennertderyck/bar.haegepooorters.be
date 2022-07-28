@@ -31,8 +31,11 @@ export type RegisterCredentials = {
     pin: Pin
 } & UserBasics
 
-export type Session = {
-    id: any,
+export type FreshSession = {
     user: User,
+}
+
+export type Session = FreshSession & {
+    id: any,
     lastAccess: string,
 }

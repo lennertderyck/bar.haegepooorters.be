@@ -56,7 +56,7 @@ const SessionIndexPge: FC<Props> = () => {
                 </Link>
             </div>
             <Popover active={ !!selectedSession } onClose={() => selectSession(undefined)}>
-                <PinVerification session={ selectedSession as Session } onComplete={ handleVerificationComplete } onError={ handleVerificationError } />
+                <PinVerification session={{ email: selectedSession?.user.email || '' }} onComplete={ handleVerificationComplete } onError={ handleVerificationError } />
             </Popover>
         </>
     )

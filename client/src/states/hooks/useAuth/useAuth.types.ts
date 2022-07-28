@@ -19,6 +19,7 @@ export type Action =
 | { type: 'AUTH_INIT' }
 | { type: 'AUTH_ABORT' }
 | { type: 'AUTH_RETRY' }
+| { type: 'AUTH_INITIAL' }
 | { type: 'AUTH_SUCCESS'; payload: AuthenticatedUser }
 | { type: 'AUTH_FAILED'; payload: Error }
 | { type: 'WALLET_SELECT'; payload: Wallet }
@@ -28,6 +29,7 @@ export type AuthFunctions = {
     login: (credentials: LoginCredentials) => void;
     loginRetry: () => void;
     refreshUser: () => void;
+    logout: (currentPageUrl?: string) => void;
     
     getSessionById: (id: ID) => Session | undefined;
     getSessionByEmail: (email: string) => Session | undefined;

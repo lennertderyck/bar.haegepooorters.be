@@ -15,6 +15,8 @@ const createReducer = () => (
     action: Action
 ): AuthReducerState => {
     switch (action.type) {
+        case 'AUTH_INITIAL': 
+            return initialValues;
         case 'AUTH_INIT':
             return {
                 ...state,

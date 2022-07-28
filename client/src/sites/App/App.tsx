@@ -38,7 +38,7 @@ const sessions: Session[] = [
   },
 ]
 
-window.localStorage.setItem('sessions', JSON.stringify(sessions));
+// window.localStorage.setItem('sessions', JSON.stringify(sessions));
 
 function App() {
   const app = useApp();
