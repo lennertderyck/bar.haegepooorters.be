@@ -15,7 +15,7 @@ const HomePage: FC<Props> = ({ children }) => {
         <div className="h-full flex flex-col justify-center">
             <header>
                 <div className="container mx-auto py-8">
-                    <h1 className="text-4xl text-center">BarApp</h1>
+                    <h1 className="text--main text-4xl text-center">BarApp</h1>
                 </div>
             </header>
             { isMobile ? (<>
@@ -29,7 +29,7 @@ const HomePage: FC<Props> = ({ children }) => {
                 </div>
             </>) : (<>
                 <div className="container mx-auto px-12">
-                    <h2 className="text-center text-xl">Je kan de app hier nog niet gebruiken</h2>
+                    <h2 className="text-center text-xl text--main">Je kan de app hier nog niet gebruiken</h2>
                     <p className="text-center text-stone-500">Open deze pagina op je smartphone</p>
                 </div>
             </>)}

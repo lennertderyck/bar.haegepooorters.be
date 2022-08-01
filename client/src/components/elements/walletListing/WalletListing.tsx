@@ -40,6 +40,9 @@ const WalletListing: FC<Props> = () => {
             </div>
             
             <h3 className="mb-4">Beschikbare wallets</h3>
+            { 
+                availableCreditProviders?.length === 0 && <p className="text--secondary">Geen voorgestelde wallets beschikbaar</p>
+            }
             {
                 availableCreditProviders?.map(creditProvider => (
                     <div key={ creditProvider.id } className="mb-4 last:mb-0">

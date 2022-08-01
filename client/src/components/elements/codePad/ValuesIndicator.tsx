@@ -9,7 +9,7 @@ type ValueIndicatorProps = {
 const ValueIndicator = tw.div<ValueIndicatorProps>`
     w-2.5 h-2.5
     rounded-full
-    ${(props: ValueIndicatorProps) => props.error ? 'bg-red-500' : props.active ? 'bg-stone-400' : 'bg-stone-200' }
+    ${(props: ValueIndicatorProps) => props.error ? 'bg-red-500' : props.active ? 'bg-stone-400 dark:bg-stone-600' : 'bg-stone-200' }
 `;
 
 type ValueIndicatorsProps = {

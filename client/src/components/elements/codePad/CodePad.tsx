@@ -136,15 +136,15 @@ const Codepad: FC<Props> = ({ length = 4, className, onComplete, loading, error,
                     keys.map(({ label, hidden, ...keyProps}, index) => (
                         <div className={ classNames('col-span-1', hidden && 'opacity-0 pointer-events-none')}>
                             <PadKey { ...keyProps } key={ index }>
-                                <div className="w-12 h-12 flex items-center justify-center font-medium text-xl">{ label }</div>
+                                <div className="w-12 h-12 flex items-center justify-center font-medium text-xl text--main">{ label }</div>
                             </PadKey>
                         </div>
                     ))
                 }
             </div>
-            { loading && <div className="absolute inset-0 bg-stone-200 bg-opacity-80 z-10 flex items-center justify-center">
+            { loading && <div className="absolute inset-0 bg-white dark:bg-stone-900 z-10 flex items-center justify-center">
                 <div className="animate-spin">
-                    <Icon name="loader-5" size="3rem" />
+                    <Icon name="loader-5" size="3rem" className="text--main" />
                 </div>
             </div> }
         </div>

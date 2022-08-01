@@ -61,6 +61,10 @@ body {
     @apply text-black dark:text-stone-200
 };
 
+.text--secondary {
+    @apply text-stone-500;
+}
+
 hr {
    @apply dark:border-stone-500 
 }
