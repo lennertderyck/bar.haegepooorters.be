@@ -91,7 +91,7 @@ const Popover: FC<PopoverProps> = ({ children, active, onClose, bare }) => {
                             >
                                 <div>
                                     <div className="popover__drag-handle bg-red h-16 flex items-center justify-center">
-                                        <div className="h-2 w-12 bg-white rounded-full mx-auto translate-y-2" />
+                                        <div className="h-2 w-12 bg-white dark:bg-stone-800 rounded-full mx-auto translate-y-2" />
                                     </div>
                                     <div className={ classNames(
                                         'popover__drag-cancel',

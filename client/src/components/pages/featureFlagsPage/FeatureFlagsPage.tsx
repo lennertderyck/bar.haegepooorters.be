@@ -60,7 +60,7 @@ const FeatureFlagsPage: FC<Props> = ({ children }) => {
                             defaultChecked={ flagDetails?.state } 
                             name={ flagDetails?.id }
                         />
-                        <span>{ flagDetails?.state ? 'Ingeschakeld' : 'Uitgeschakeld' }</span>
+                        <span className="text--main">{ flagDetails?.state ? 'Ingeschakeld' : 'Uitgeschakeld' }</span>
                     </label>
                 </>
                )}
