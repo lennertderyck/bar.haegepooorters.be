@@ -15,8 +15,8 @@ const TransactionListItem: FC<Props> = ({ transaction }) => {
     
     return (
         <div className="flex items-center justify-between">
-            <h3>{ dayjs(transaction.createdAt).fromNow() }</h3>
-            <h4><Pricfy>{ transactionTotal }</Pricfy></h4>
+            <h3 className="text--main">{ dayjs(transaction.createdAt).fromNow() }</h3>
+            <h4 className="text--main"><Pricfy>{ transactionTotal }</Pricfy></h4>
         </div>
     )
 }

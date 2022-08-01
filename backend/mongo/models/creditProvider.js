@@ -5,6 +5,10 @@ import toJson from '@meanie/mongoose-to-json';
 
 const CreditProviderSchema = new Schema({
     label: String,
+    public: {
+        type: Boolean,
+        default: false
+    },
     createdAt: {
         type: Date,
         default: Date.now

@@ -4,13 +4,15 @@ import {
 // @ts-ignore
 import SlideRoutes from 'react-slide-routes';
 import { FC } from 'react';
-import { AddSessionPage, CartPage, FeatureFlagsPage, LoginPage, ProductsListPage, SessionIndexPage, StartPage, UserDetailPage, UserProfilePage, UserTransactionsPage, WalletDetailPage, WalletOverviewPage } from "../../pages";
+import { AddSessionPage, CartPage, FeatureFlagsPage, LoginPage, ProductsListPage, SessionIndexPage, StartPage, UserDetailPage, UserProfilePage, UserTransactionsPage, WalletDetailPage, WalletJoinPage, WalletOverviewPage } from "../../pages";
 import ProtectedRoute from "../protectedRoute/ProtectedRoute";
 import RouterOutlet from "../routerOutlet/RouterOutlet";
 import Footer from "../footer/Footer";
 import styled from "styled-components";
 import useAuth from "../../../states/hooks/useAuth/useAuth";
 import NotificationPermissionPopover from "../notificationPermissionPopover/NotificationPermissionPopover";
+import QrScanPopover from "../qrScanPopover/QrScanPopover";
+import useQrScanPopover from "../../../states/hooks/useQrScanPopover/useQrScanPopover";
 
 type Props = {
     children?: any;
@@ -21,6 +23,7 @@ const FooterWrapper = styled.div`
 `;
 
 const Router: FC<Props> = ({ children }) => {
+    const qrScan = useQrScanPopover();
     const { user } = useAuth();
     
     return (
@@ -44,31 +47,26 @@ const Router: FC<Props> = ({ children }) => {
                             <Route path="user" element={ <ProtectedRoute><RouterOutlet /></ProtectedRoute> }>
                                 <Route index element={ <UserDetailPage /> } />
                                 <Route path="wallets" element={ <ProtectedRoute><RouterOutlet /></ProtectedRoute> }>
-                                    <Route path=":id" element={ <WalletDetailPage /> } />
                                     <Route index element={ <WalletOverviewPage /> } />
+                                    <Route path=":id" element={ <WalletDetailPage /> } />
+                                    <Route path="join" element={ <WalletJoinPage /> } />
+                                    <Route path="join/:id" element={ <WalletJoinPage /> } />
                                 </Route>
                                 <Route path="transactions" element={ <ProtectedRoute><RouterOutlet /></ProtectedRoute> }>
                                     <Route path=":id" element={ <UserTransactionsPage /> } />
                                     <Route index element={ <UserTransactionsPage /> } />
                                 </Route>
                                 <Route path="account" element={ <UserProfilePage /> } />
-                            </Route>
-                            <Route path="flags">
-                                <Route index element={ <FeatureFlagsPage /> } />
-                                <Route path=":id" element={ <FeatureFlagsPage /> } />
+                                <Route path="flags">
+                                    <Route index element={ <FeatureFlagsPage /> } />
+                                    <Route path=":id" element={ <FeatureFlagsPage /> } />
+                                </Route>
                             </Route>
                             <Route path="shared/:type/:data" element={ <></> } />
                             <Route path="/" element={ <ProtectedRoute><StartPage /></ProtectedRoute> } />
                         </Route>
                     </SlideRoutes>
                 </div>
-                {/* { user && (
-                    <div className="sticky bottom-0 left-0 right-0 z-40 p-8 flex justify-center">
-                        <FooterWrapper className="w-fit bg-white rounded-full overflow-hidden border-[1px] border-stone-50">
-                            <Footer />
-                        </FooterWrapper>
-                    </div>
-                )} */}
                 { user && (
                     <>
                         <div className="flex justify-center pt-3">
@@ -77,6 +75,7 @@ const Router: FC<Props> = ({ children }) => {
                         <NotificationPermissionPopover />
                     </>
                 )}
+                <QrScanPopover />
             </div>
         </>
     )

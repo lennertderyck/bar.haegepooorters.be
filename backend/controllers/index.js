@@ -2,6 +2,7 @@ import bcrypt from 'bcrypt';
 import CreditProvider from '../mongo/models/creditProvider.js';
 import Product from '../mongo/models/product.js';
 import ProductCategory from '../mongo/models/productCategory.js';
+import Session from '../mongo/models/session.js';
 import Transaction from '../mongo/models/transaction.js';
 import User from "../mongo/models/user.js";
 import UserWallet from '../mongo/models/userWallet.js';
@@ -64,6 +65,7 @@ export const register = async (req, res) => {
 
 export const login = async (req, res) => {
     const { email, pin } = req.body;
+    const { session } = req;
     
     try {
         if (!email || !pin) {
@@ -101,8 +103,20 @@ export const login = async (req, res) => {
             
             return;
         }
+        
+        // if (!session) {
+        //     session = Session.create({
+        //         user: user.id || user._id,
+        //     })
+        // }
     
-        const token = hashJwtToken({ userId: user._id, role: user.role });
+        const token = hashJwtToken({ 
+            userId: user._id, 
+            role: user.role,
+            session: session
+        });
+        
+        console.log(token);
         
         const wallets = await UserWallet.find({
             user: user._id
@@ -260,6 +274,20 @@ export const registerCreditProvider = async (req, res) => {
 export const getAllCreditProviders = async (req, res) => {
     const creditProviders = await CreditProvider.find({});
     res.json(creditProviders);
+}
+
+export const getPublicCreditProviders = async (req, res) => {
+    const requestedId = req.params?.id;
+    
+    console.log(req.query)
+    
+    if (requestedId) {
+        const creditProviders = await CreditProvider.findById(requestedId);
+        res.json(creditProviders);
+    } else {
+        const creditProviders = await CreditProvider.find({})
+        res.json(creditProviders);
+    }
 }
 
 export const getTransactionsByUser = async (req, res) => {
@@ -421,4 +449,57 @@ export const createUser = async (req, res) => {
             error
         })
     }
+}
+
+export const getAvailableCreditProvidersForUser = async (req, res) => {
+    try {
+        const user = await User.findById(req.user.userId);
+        const walletIds = user.wallets.map(w => w.provider._id)
+        const creditProviders = await CreditProvider.find({
+            _id: {
+                $nin: walletIds
+            }
+        })
+        res.json(creditProviders);
+    } catch (error) {
+        res.status(500).json({
+            status: 'ERROR',
+            error
+        })
+    }
+}
+
+export const checkCreditProviderAvailabilityForUser = async (req, res) => {
+    const requestedCreditProvider = req.params.id;
+    
+    try {
+        const wallet = await UserWallet.findOne({
+            provider: requestedCreditProvider,
+            user: req.user.userId
+        })
+        
+        const creditProvider = await CreditProvider.findById(requestedCreditProvider);
+        
+        const response = {
+            available: false,
+            creditProvider,
+            wallet
+        }
+        
+        if (wallet) {
+            res.json(response);
+        } else {
+            res.json({
+                ...response,
+                available: true
+            });
+        }
+    } catch (error) {
+        console.log(error.message)
+        res.status(500).json({
+            status: 'ERROR',
+            error: error.message
+        })
+    }
+    
 }

@@ -19,7 +19,7 @@ const UserSchema = new Schema(
             default: Date.now
         },
         deleted_at: Date,
-        role: {
+        role: { 
             type: Schema.Types.ObjectId,
             ref: 'Role',
             default: '61eec55b38e0766ab63c049c'

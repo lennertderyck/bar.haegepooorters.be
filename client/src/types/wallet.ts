@@ -2,13 +2,13 @@ import { CartItem } from "./bar"
 import { ID, Intrest, Record } from "./general"
 import { User } from "./verification"
 
-export interface WalletProvider extends Record {
+export interface CreditProvider extends Record {
     label: string,
 }
 
 export interface Wallet extends Record {
     balance: number;
-    provider: WalletProvider;
+    provider: CreditProvider;
 }
 
 export interface Purchase {

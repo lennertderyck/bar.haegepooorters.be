@@ -3,13 +3,13 @@ import { useForm, FormProvider, useFormContext, useWatch } from "react-hook-form
 import {ErrorBoundary} from 'react-error-boundary'
 
 type Props = {
-    children: any;
+    children?: any;
     onSubmit?: Function;
     onChange?: Function;
     defaultValues?: object;
     loading?: boolean;
     test?: boolean;
-    className: string;
+    className?: string;
 }
 
 const Form: FC<Props> = ({ children, onSubmit, onChange, defaultValues, loading, test, className, ...otherProps }) => {

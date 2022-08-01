@@ -1,12 +1,12 @@
 import { FC, useState } from 'react';
-import { WalletProvider } from '../../../types/wallet';
+import { CreditProvider } from '../../../types/wallet';
 import { Icon } from '../../basics';
 import useEndPoints from '../../../states/hooks/useEndpoints/useEndpoints';
 import axios from 'axios';
 import useAuth from '../../../states/hooks/useAuth/useAuth';
 
 type Props = {
-    provider: WalletProvider;
+    provider: CreditProvider;
     onCreated?: () => void;
     onError?: () => void;
 };

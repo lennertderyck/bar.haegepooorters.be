@@ -34,10 +34,10 @@ const ProductCard: FC<Props> = ({ product, onInfoDisplay, onAddItem, onRemoveIte
     return (
         <div 
             key={ product.id }
-            className="flex items-center justify-between py-5 border-b border-stone-300 last:border-b-0"
+            className="flex items-center justify-between py-5 border-b border-stone-300 dark:border-stone-700 last:border-b-0"
         >
             <div className={ classNames('flex-1', !product.available && 'opacity-50') } onClick={ handleInfoDisplay }>
-                <h3 className="text-lg leading-5">{ product.name } – <Pricify>{ product.price }</Pricify></h3>
+                <h3 className="text-lg leading-5 text--main">{ product.name } – <Pricify>{ product.price }</Pricify></h3>
                 <p className="text-stone-500">{ product.category.name } – { product.quantity }</p>
             </div>
             { product.available && (

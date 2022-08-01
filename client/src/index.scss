@@ -31,11 +31,20 @@ body {
 }
 
 .pre-heading {
-    @apply text-stone-500 uppercase tracking-widest font-medium text-lg;
+    @apply text-stone-500 dark:text-stone-400 uppercase tracking-widest font-medium text-lg;
 }
 
 .heading {
     font-size: 7vw; //@todo clamp / min-max font-size
+    @apply text-black dark:text-stone-200
+}
+
+.popover__title {
+    @apply text-2xl font-semibold text-black dark:text-stone-200;
+}
+
+.popover__subtitle {
+    @apply text-stone-400 font-medium text-lg;
 }
 
 .label {
@@ -46,4 +55,12 @@ body {
     &, .item {
         @apply h-full max-h-screen overflow-scroll;
     }
+}
+
+.text--main {
+    @apply text-black dark:text-stone-200
+};
+
+hr {
+   @apply dark:border-stone-500 
 }

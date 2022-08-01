@@ -12,17 +12,19 @@ type Props = {
 };
 
 const SitesRoot: FC<Props> = () => {
-    return (<>
-        <BrowserRouter basename="app">
-            <App />
-        </BrowserRouter>
-        <BrowserRouter basename="backoffice">
-            <BackOffice />
-        </BrowserRouter>
-        <BrowserRouter>
-            <FrontView />
-        </BrowserRouter>
-    </>);
+    return (<div className="dark">
+        <div className="bg-white dark:bg-stone-900">
+            <BrowserRouter basename="app">
+                <App />
+            </BrowserRouter>
+            <BrowserRouter basename="backoffice">
+                <BackOffice />
+            </BrowserRouter>
+            <BrowserRouter>
+                <FrontView />
+            </BrowserRouter>
+        </div>
+    </div>);
 }
 
 export default SitesRoot;

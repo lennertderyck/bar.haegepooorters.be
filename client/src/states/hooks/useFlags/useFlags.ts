@@ -15,8 +15,10 @@ const useFlags = create(
             flags,
             
             toggleFlag: (flag: ID, newState?: boolean) => {
-                set({
-                    flags: get().flags.map(f => {
+                set((state) => {
+                    const flags = state.flags;
+                    
+                    const update = flags.map(f => {
                         if (f.id === flag) {
                             return {
                                 ...f,
@@ -26,12 +28,18 @@ const useFlags = create(
                             return f
                         }
                     })
+                    
+                    return {
+                        flags: update
+                    }
                 })
             },
             
             enable: (flag: ID) => {
-                set({
-                    flags: get().flags.map(f => {
+                set((state) => {
+                    const flags = state.flags;
+                    
+                    const update = flags.map(f => {
                         if (f.id === flag) {
                             return {
                                 ...f,
@@ -41,12 +49,18 @@ const useFlags = create(
                             return f
                         }
                     })
+                    
+                    return {
+                        flags: update
+                    }
                 })
             },
             
             disable: (flag: ID) => {
-                set({
-                    flags: get().flags.map(f => {
+                set((state) => {
+                    const flags = state.flags;
+                    
+                    const update = flags.map(f => {
                         if (f.id === flag) {
                             return {
                                 ...f,
@@ -56,6 +70,10 @@ const useFlags = create(
                             return f
                         }
                     })
+                    
+                    return {
+                        flags: update
+                    }
                 })
             },
             

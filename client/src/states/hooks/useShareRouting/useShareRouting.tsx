@@ -1,13 +1,16 @@
 import { EncodedRoute, RouteDecoder, RouteEncoder, ShareTypes, UseShareRouting } from "./useShareRouting.types";
 
+const prefix = 'web+barapp://'
 const separator = ':';
 
 const encodeRoute: RouteEncoder = (key: ShareTypes, data) => {
-    return key + separator + data;
+    console.log(prefix + key + separator + data)
+    return prefix + key + separator + data;
 }
 
 const decodeRoute: RouteDecoder = (encodedRoute) => {
-    const [route, data] = encodedRoute.split(';');
+    const [, value] = encodedRoute.split('://');
+    const [route, data] = value.split(separator);
     
     return {
         route,

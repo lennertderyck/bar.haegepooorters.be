@@ -16,18 +16,19 @@ interface Props extends React.DetailedHTMLProps<React.ButtonHTMLAttributes<HTMLB
     fitWidth?: boolean;
 };
 
-const ButtonShim = tw.button`w-full
+const ButtonShim = tw.button`
     rounded-full
     uppercase
     tracking-widest
     ${(props: Props) => props.small ? 'text-sm' : 'text-base' }
     ${(props: Props) => props.disabled ? 'opacity-50' : 'opacity-100' }
-    ${(props: Props) => props.secondary ? 'bg-white font-medium' : 'bg-black text-white'}
+    ${(props: Props) => props.secondary ? 'font-medium' : ''}
+    ${(props: Props) => props.secondary ? 'bg-white dark:bg-stone-900 text-black dark:text-white' : 'bg-black dark:bg-stone-200 text-white dark:text-black'}
     ${(props: Props) => !props.simple ? 'py-3 border' : 'py-0'}
-    ${(props: Props) => !props.simple ? props.secondary ? 'border-stone-300' : 'border-black' : ''}
+    ${(props: Props) => !props.simple ? props.secondary ? 'border-stone-300' : 'border-black dark:border-stone-400' : ''}
     ${(props: Props) => props.loading ? 'cursor-not-allowed opacity-60' : 'cursor-pointer'}
     ${(props: Props) => props.icon ? 'flex items-center' : ''}
-    ${(props: Props) => props.fitWidth ? 'justify-start' : 'justify-between'}
+    ${(props: Props) => props.fitWidth ? 'justify-start px-4' : 'justify-between w-full'}
     ${(props: Props) => props.icon && !props.simple ? 'px-4' : ''}
 `;
 
@@ -55,7 +56,7 @@ const Button: FC<Props> = ({ children, disabled, onClick, iconPlacement = 'appen
         >
             {( otherProps.icon && iconPlacement === 'prepend' ) && <Icon className="mr-2" name={ otherProps.icon } />}
             { otherProps.loading ? '...' : children }
-            {( otherProps.icon && iconPlacement === 'append') && <Icon name={ otherProps.icon } />}
+            {( otherProps.icon && iconPlacement === 'append') && <Icon className="ml-2" name={ otherProps.icon } />}
         </ButtonShim>
     )
 }

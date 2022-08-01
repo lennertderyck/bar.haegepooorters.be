@@ -21,11 +21,11 @@ const ProductAddButton: FC<Props> = ({ amount, onClick }) => {
             onClick={ handleClick }
             className={ classNames(
                 'rounded-full flex items-center w-fit',
-                isEmpty ? 'border border-black p-1.5' : 'bg-black text-white pl-3 pr-2 py-1.5',
+                isEmpty ? 'border border-black dark:border-stone-200 p-1.5' : 'bg-black dark:bg-stone-200 text-white dark:text-black pl-3 pr-2 py-1.5',
             )}
         >
             { !isEmpty && <span className="font-semibold">{ amount }</span>}
-            <Icon name="add" className={ classNames( !isEmpty && 'ml-2')} />
+            <Icon name="add" className={ classNames( !isEmpty && 'ml-2 text-white dark:text-black', 'text--main')} />
         </button>
     )
 }

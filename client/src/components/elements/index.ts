@@ -14,3 +14,5 @@ export { default as TransactionList } from './transactions/TransactionList';
 export { default as NotificationPermissionPopover } from './notificationPermissionPopover/NotificationPermissionPopover';
 export { default as Form } from './form/Form';
 export { default as Input } from './input/Input';
+export { default as QrScanner } from './qrScanner/QrScanner';
+export { default as QrScanPopover} from './qrScanPopover/QrScanPopover';

@@ -33,21 +33,21 @@ const TransactionSummary: FC<Props> = ({ transaction, showTimeStamp = true }) =>
     
     return (
         <>
-            { showTimeStamp && <h3 className="text-2xl font-semibold first-letter:uppercase mb-4">{ formattedDate }</h3>}
+            { showTimeStamp && <h3 className="popover__title first-letter:uppercase mb-4">{ formattedDate }</h3>}
             
-            <div className="flex justify-between">
+            <div className="flex justify-between text--main">
                 <span>Wallet</span>
                 <span className="font-semibold">{ transaction?.wallet.provider.label }</span>
             </div>
             <p className="text-stone-400 text-sm">Gebruikte wallet</p>
                         
-            <div className="flex justify-between mt-4">
+            <div className="flex justify-between mt-4 text--main">
                 <span>Subtotaal</span>
                 <span className="font-semibold"><Pricfy>{ transactionTotal }</Pricfy></span>
             </div>
             <p className="text-stone-400 text-sm">Totaal van alle items</p>
                                     
-            <div className="flex justify-between mt-4">
+            <div className="flex justify-between mt-4 text--main">
                 <span>Boete</span>
                 <span className="font-semibold">+ 0%</span>
             </div>
@@ -60,7 +60,7 @@ const TransactionSummary: FC<Props> = ({ transaction, showTimeStamp = true }) =>
                 className="flex items-center justify-between" 
             >
                 <h3 className="text-stone-500 whitespace-nowrap">
-                    { transaction.items.length } items gekocht
+                    { transaction.items.length } { transaction.items.length === 1 ? 'item' : 'items' } gekocht
                 </h3>
                 <div className={ showProducts ? 'rotate-180' : 'rotate-0' }>
                     <Icon 
@@ -73,7 +73,7 @@ const TransactionSummary: FC<Props> = ({ transaction, showTimeStamp = true }) =>
             <ExspansionPane active={ showProducts }>
                 <ul className="mt-2">
                     { transaction.items.map(item => (
-                        <li className="flex items-center mb-1">
+                        <li className="flex items-center mb-1 text--main">
                             { item.amount } <Icon name="close" size="1rem" className="mx-2" /> { item.product.name }
                         </li>
                     )) }

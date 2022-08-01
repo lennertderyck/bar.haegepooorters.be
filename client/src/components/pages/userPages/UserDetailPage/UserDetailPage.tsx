@@ -33,7 +33,7 @@ const UserDetailPage: FC<Props> = ({ children }) => {
         {
             label: 'Flags',
             icon: 'flag',
-            route: '/flags',
+            route: '/user/flags',
         },
     ]
     

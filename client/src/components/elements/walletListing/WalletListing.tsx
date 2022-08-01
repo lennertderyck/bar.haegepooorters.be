@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import useAuth from '../../../states/hooks/useAuth/useAuth';
 import useAxiosBeta from '../../../states/hooks/useAxiosBeta/useAxiosBeta';
 import useEndPoints from '../../../states/hooks/useEndpoints/useEndpoints';
-import { Wallet, WalletProvider } from '../../../types/wallet';
+import { Wallet, CreditProvider } from '../../../types/wallet';
 import { Icon } from '../../basics';
 import CreateWalletCard from '../createWalletCard/CreateWalletCard';
 import WalletCard from '../walletCard/WalletCard';
@@ -19,16 +19,35 @@ const WalletListing: FC<Props> = () => {
             'Authorization': 'Bearer ' + user?.token
         }
     });
-    const walletProviderStates = useAxiosBeta<WalletProvider[]>(endpoints.creditProviders.all);
-    
-    const createdWallets = wallets?.filter(wallet => {
-        const isCreated = walletProviderStates.data?.find(provider => provider.id === wallet.provider.id);
-        return isCreated;
-    });
+
+    const { data: availableCreditProviders } = useAxiosBeta<CreditProvider[]>(endpoints.user.availableCreditProviders, {
+        headers: {
+            'Authorization': 'Bearer ' + user?.token
+        }
+    })
 
     return (
         <div>
+            <div className="mb-8">
+                <h3 className="mb-4">Toegevoegde wallets</h3>
+                {
+                    wallets?.map(wallet => (
+                        <Link to={ `/user/wallets/${ wallet.id }` } className="block mb-4 last:mb-0">
+                            <WalletCard wallet={ wallet } key={ wallet.id } />
+                        </Link>
+                    ))
+                }
+            </div>
+            
+            <h3 className="mb-4">Beschikbare wallets</h3>
             {
+                availableCreditProviders?.map(creditProvider => (
+                    <div key={ creditProvider.id } className="mb-4 last:mb-0">
+                        <CreateWalletCard provider={ creditProvider } />
+                    </div>
+                ))
+            }
+            {/* {
                 wallets && walletProviderStates?.data?.map((provider) => {
                     const createdWallet = wallets?.find((w) => w.provider.id === provider.id);
                     
@@ -42,7 +61,7 @@ const WalletListing: FC<Props> = () => {
                         )
                     }
                 })
-            }
+            } */}
         </div>
     )
 }

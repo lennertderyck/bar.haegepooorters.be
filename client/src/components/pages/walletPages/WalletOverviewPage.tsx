@@ -1,4 +1,6 @@
 import { FC } from 'react';
+import { Link } from 'react-router-dom';
+import { Button } from '../../basics';
 import { WalletListing } from '../../elements';
 
 type Props = {
@@ -13,6 +15,9 @@ const WalletOverviewPage: FC<Props> = () => {
             </div>
             
             <WalletListing />
+            <Link to="join">
+                <Button secondary small className="mt-8">Heb je een code?</Button>
+            </Link>
         </div>
     )
 }

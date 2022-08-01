@@ -16,9 +16,9 @@ const ProductRemoveButton: FC<Props> = ({ onClick }) => {
     return (
         <button
             onClick={ handleClick }
-            className="p-0.5 border border-black rounded-full"
+            className="p-0.5 border border-black dark:border-stone-200 rounded-full"
         >
-            <Icon name="subtract"/>
+            <Icon name="subtract" className="text--main"/>
         </button>
     )
 }

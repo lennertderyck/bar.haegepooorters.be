@@ -36,7 +36,7 @@ const Footer: FC<Props> = ({ children }) => {
     const { items } = useCart();
     
     return (
-        <FooterWrapper className="w-fit bg-white border-[1px] border-stone-50">
+        <FooterWrapper className="w-fit">
             <div className="w-fit">
                 <div className="px-3"> 
                     <div className="flex justify-evenly gap-4">

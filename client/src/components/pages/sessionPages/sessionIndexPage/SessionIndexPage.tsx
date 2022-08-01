@@ -40,12 +40,12 @@ const SessionIndexPge: FC<Props> = () => {
                             <div
                                 onClick={() => handleSessionSelect(session)}
                                 title={ `Laatst aangemeld ${lastSession}` }
-                                className="py-4 flex items-center gap-x-4 border-b border-stone-300"
+                                className="py-4 flex items-center gap-x-4 border-b border-stone-300 dark:border-stone-700"
                             >
-                                <Icon name="user" size="1.6rem" />
+                                <Icon name="user" size="1.6rem" className="text--main" />
                                 <div>
-                                    <h3 className="text-lg leading-4">{ session.user.firstName }</h3>
-                                    <p className="text-stone-500">{ session.user.email }</p>
+                                    <h3 className="text-lg leading-4 text--main">{ session.user.firstName }</h3>
+                                    <p className="text-stone-500 dark:text-stone-400">{ session.user.email }</p>
                                 </div>
                             </div>
                         )

@@ -34,8 +34,8 @@ const ProductDetailPopup: FC<ProductDetailPopupProps> = ({ selectedProduct, onCl
         <Popover active={ !!selectedProduct } onClose={ handleClose }>
             { selectedProduct && (
                 <>
-                    <h3 className="text-2xl font-semibold text-center">{ selectedProduct.name }</h3>
-                    <h4 className="text-stone-400 text-center font-medium text-lg"><Pricfy>{ selectedProduct.price }</Pricfy></h4>
+                    <h3 className="popover__title text-center">{ selectedProduct.name }</h3>
+                    <h4 className="popover__subtitle text-center"><Pricfy>{ selectedProduct.price }</Pricfy></h4>
                     
                     {!selectedProduct.available && <div className="text-center mt-4 text-stone-400">Item niet beschikbaar</div>}
                         
@@ -46,14 +46,14 @@ const ProductDetailPopup: FC<ProductDetailPopupProps> = ({ selectedProduct, onCl
                                     <button 
                                         disabled={ itemNotInCart }
                                         onClick={() => removeSingle(selectedProduct)}
-                                        className="rounded-full p-2 bg-stone-200 w-12 h-12 flex items-center justify-center"
+                                        className="rounded-full p-2 bg-stone-200 dark:bg-stone-400 w-12 h-12 flex items-center justify-center"
                                     >
                                         <Icon name="subtract" size="1.6rem" />
                                     </button>
                                 </div>
                                 <button 
                                     onClick={() => addItem(selectedProduct)}
-                                    className="flex-1 flex justify-between bg-black text-white rounded-full py-3 pl-4 pr-2"
+                                    className="flex-1 flex justify-between bg-black dark:bg-stone-200 text-white dark:text-black rounded-full py-3 pl-4 pr-2"
                                 >
                                     <span className="font-medium">{ cartitem.amount || 0 } items</span>
                                     <span className="flex items-center">
@@ -62,18 +62,6 @@ const ProductDetailPopup: FC<ProductDetailPopupProps> = ({ selectedProduct, onCl
                                     </span>
                                 </button>
                             </div>
-                            {/* <div className={ classNames('overflow-hidden', itemNotInCart ? 'opacity-0 max-h-[0vw] pt-0' : 'opacity-100 max-h-[100vw] pt-6') }>
-                                <Button 
-                                    secondary 
-                                    simple 
-                                    onClick={() => {
-                                        removeItem(selectedProduct);
-                                        onClose();
-                                    }}
-                                >
-                                    All items verwijderen
-                                </Button>
-                            </div> */}
                         </>
                     )}
                 </>
@@ -165,13 +153,13 @@ const ProductsListPage: FC<Props> = () => {
             </div>
             
             <div className={ classNames(
-                'sticky bottom-0 left-0 right-0 bg-white',
+                'sticky bottom-0 left-0 right-0 bg-white dark:bg-stone-900',
                 items.length > 0 ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-full'
             )}>
-                <div className="border-t border-gray-300 px-8 pt-8">
+                <div className="border-t border-gray-300 dark:border-stone-600 px-8 pt-8">
                     <button 
                         onClick={() => setShowPriceDetails(!showPriceDetails)}
-                        className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-stone-200 rounded-full p-1"
+                        className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-stone-200 dark:bg-stone-600 rounded-full p-1"
                     >
                         <Icon name="arrow-up-s" className={ classNames(showPriceDetails && 'rotate-180') } />
                     </button>
@@ -180,13 +168,13 @@ const ProductsListPage: FC<Props> = () => {
                         'overflow-hidden',
                         showPriceDetails ? 'opacity-100 max-h-[100vh] pb-6' : 'opacity-0 max-h-0 pb-0' 
                     )}>
-                        <div className="flex justify-between">
+                        <div className="flex justify-between text--main">
                             <span>Subtotaal</span>
                             <span className="font-semibold"><Pricfy>{ total }</Pricfy></span>
                         </div>
                         <p className="text-stone-400 text-sm">Totaal van alle items</p>
                                 
-                        <div className="flex justify-between mt-4">
+                        <div className="flex justify-between mt-4 text--main">
                             <span>Boete</span>
                             <span className="font-semibold">+ 0%</span>
                         </div>

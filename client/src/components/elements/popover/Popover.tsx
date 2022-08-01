@@ -4,11 +4,13 @@ import { CSSTransition } from 'react-transition-group';
 import { useEffectOnce } from '../../../states/hooks/useEffectOnce/useEffectOnce';
 import './Popover.scss';
 import { Icon } from '../../basics';
+import classNames from 'classnames';
 
 export type PopoverProps = {
     children?: any;
     active: boolean;
-    onClose?: Function
+    onClose?: Function;
+    bare?: boolean;
 };
 
 const Container = tw.div`
@@ -25,7 +27,7 @@ const Backdrop = tw.div`
     bg-black bg-opacity-50
 `;
 
-const Popover: FC<PopoverProps> = ({ children, active, onClose }) => {
+const Popover: FC<PopoverProps> = ({ children, active, onClose, bare }) => {
     const [ contentVisible, setContentVisible ] = useState(active);
     
     const handleClose = () => {
@@ -67,12 +69,15 @@ const Popover: FC<PopoverProps> = ({ children, active, onClose }) => {
                     appear
                     onExited={ handleContentExitWithDelay }
                 >
-                    <div className="popover relative bg-white h-fit w-full p-8 max-h-screen overflow-scroll">
+                    <div className={ classNames(
+                        'popover relative h-fit w-full max-h-screen overflow-scroll',
+                        !bare && 'bg-white dark:bg-stone-900 p-8'
+                    )}>
                         <button 
                             className="absolute top-4 right-3 justify-end rounded-full p-1"
                             onClick={ exitWithEffect }
                         >
-                            <Icon name="close" size="1.6rem" />
+                            <Icon name="close" size="1.6rem" className="text--main" />
                         </button>
                         { children }
                     </div>
