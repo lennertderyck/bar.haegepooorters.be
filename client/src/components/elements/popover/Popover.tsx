@@ -1,10 +1,10 @@
-import { FC, useEffect, useState } from 'react';
+import { FC, useCallback, useEffect, useState } from 'react';
 import tw from 'tailwind-styled-components';
 import { CSSTransition } from 'react-transition-group';
-import { useEffectOnce } from '../../../states/hooks/useEffectOnce/useEffectOnce';
 import './Popover.scss';
 import { Icon } from '../../basics';
 import classNames from 'classnames';
+import Draggable from 'react-draggable';
 
 export type PopoverProps = {
     children?: any;
@@ -44,6 +44,16 @@ const Popover: FC<PopoverProps> = ({ children, active, onClose, bare }) => {
         setTimeout(handleClose, 300);
     }
     
+    const handleDrag = (event: any, data: any) => {
+        const targetBounds = event.target.getBoundingClientRect();
+        const dragspeedHasCrossedTreshold = data.deltaY > 35
+        const handleHasCrossedTreshold = targetBounds.bottom > window.innerHeight - (targetBounds.height * 4);
+        
+        if (dragspeedHasCrossedTreshold || handleHasCrossedTreshold) {
+            exitWithEffect();
+        }
+    }
+    
     useEffect(() => {
         setContentVisible(active)
     }, [active])
@@ -61,25 +71,43 @@ const Popover: FC<PopoverProps> = ({ children, active, onClose, bare }) => {
                 <Backdrop
                     onClick={ exitWithEffect }
                 />
-                <CSSTransition 
-                    in={ contentVisible }
-                    timeout={ 200 }
-                    classNames="popover"
-                    mountOnEnter
-                    appear
-                    onExited={ handleContentExitWithDelay }
-                >
-                    <div className={ classNames(
-                        'popover relative h-fit w-full max-h-screen overflow-scroll',
-                        !bare && 'bg-white dark:bg-stone-900 p-8'
-                    )}>
-                        <button 
-                            className="absolute top-4 right-3 justify-end rounded-full p-1"
-                            onClick={ exitWithEffect }
-                        >
-                            <Icon name="close" size="1.6rem" className="text--main" />
-                        </button>
-                        { children }
+                    <CSSTransition 
+                        in={ contentVisible }
+                        timeout={ 200 }
+                        classNames="popover"
+                        mountOnEnter
+                        appear
+                        onExited={ handleContentExitWithDelay }
+                    >
+                        <div className="popover">
+                            <Draggable
+                                allowAnyClick={ true }
+                                axis="y"
+                                handle=".popover__drag-handle"
+                                bounds={{
+                                    top: 0
+                                }}
+                                onDrag={ handleDrag }
+                            >
+                                <div>
+                                    <div className="popover__drag-handle bg-red h-16 flex items-center justify-center">
+                                        <div className="h-2 w-12 bg-white rounded-full mx-auto translate-y-2" />
+                                    </div>
+                                    <div className={ classNames(
+                                        'popover__drag-cancel',
+                                        'relative h-fit w-full max-h-screen overflow-scroll',
+                                        !bare && 'bg-white dark:bg-stone-900 p-8'
+                                    )}>
+                                        <button 
+                                            className="absolute top-4 right-3 justify-end rounded-full p-1"
+                                            onClick={ exitWithEffect }
+                                        >
+                                            <Icon name="close" size="1.6rem" className="text--main" />
+                                        </button>
+                                        { children }
+                                    </div>
+                                </div>
+                        </Draggable>
                     </div>
                 </CSSTransition>
             </Container>
