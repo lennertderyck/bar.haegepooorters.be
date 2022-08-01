@@ -7,12 +7,15 @@ import App from './App/App';
 import SlideRoutes from 'react-slide-routes';
 import FrontView from './FrontView/FrontView';
 import BackOffice from './BackOffice/BackOffice';
+import useFlags from '../states/hooks/useFlags/useFlags';
 
 type Props = {
 };
 
 const SitesRoot: FC<Props> = () => {
-    return (<div className="dark">
+    const darkMode = useFlags(s => s.flagById('dark_mode'));
+    
+    return (<div className={ darkMode?.state === true ? 'dark' : ''}>
         <div className="bg-white dark:bg-stone-900">
             <BrowserRouter basename="app">
                 <App />

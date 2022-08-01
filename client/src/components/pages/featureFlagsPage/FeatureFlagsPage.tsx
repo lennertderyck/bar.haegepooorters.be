@@ -32,12 +32,12 @@ const FeatureFlagsPage: FC<Props> = ({ children }) => {
                     <ul>
                         { flags.map((flag) => (
                             <li 
-                                className="border-b border-stone-300"
+                                className="border-b border--themed"
                                 onClick={() => setRequestedFlag(flag.id)}
                             >
                                 <div className="w-full flex items-baseline justify-between py-4">
                                     <div className="flex-1 mr-6"> 
-                                        <h4 className="text-lg">{ flag.label }</h4>
+                                        <h4 className="text-lg text--main">{ flag.label }</h4>
                                         {/* <p className="text-stone-500 text-sm">{ flag.description }</p> */}
                                     </div>
                                     <div className="label text-stone-400">{ flag.state ? 'Ingeschakeld' : 'Uitgeschakeld' }</div>
@@ -51,8 +51,8 @@ const FeatureFlagsPage: FC<Props> = ({ children }) => {
                { !!flagDetails && (
                 <>
                     <div className="mb-4">
-                        <div className="text-xl">{ flagDetails?.label }</div>
-                        <p className="text-stone-500 text-sm">{ flagDetails?.description }</p>
+                        <h3 className="popover__title">{ flagDetails?.label }</h3>
+                        <p className="text-stone-500 dark:text-stone-400 text-sm">{ flagDetails?.description }</p>
                     </div>
                     <label className="flex items-center gap-4">
                         <Toggle 
