@@ -44,12 +44,12 @@ const UserDetailPage: FC<Props> = ({ children }) => {
                 <div className="heading">Account</div>
             </div>
             { menuItems.map(({ label, icon, route, subLabel, append }) => (
-                <div className="w-full border-b border-stone-200 flex items-baseline py-4">
-                    <Icon name={ icon } className="mr-4 translate-y-1" />
+                <div className="w-full border-b border-stone-300 dark:border-stone-700 flex items-baseline py-4">
+                    <Icon name={ icon } className="mr-4 translate-y-1 text--main" />
                     <div className="w-full">
                         <Link to={ route } className="w-full">
-                            <span className="block text-lg leading-5">{ label }</span>
-                            <span className="block text-stone-400">{ subLabel }</span>
+                            <span className="block text-lg leading-5 text--main">{ label }</span>
+                            <span className="block text-stone-400 text--secondary">{ subLabel }</span>
                         </Link>
                         
                         { append }

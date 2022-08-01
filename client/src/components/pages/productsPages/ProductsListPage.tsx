@@ -211,23 +211,23 @@ const ProductsListPage: FC<Props> = () => {
             
             <Popover active={ showConfirm } onClose={() => setShowConfirm(false)}>
                 <div className="mb-6">
-                    <h3 className="text-2xl font-semibold text-center">Je aankoop bevestigen</h3>
-                    <h4 className="text-stone-400 text-center font-medium text-lg">Bevestig dat je <Pricfy>{ total }</Pricfy> zal betalen</h4>
+                    <h3 className="popover__title">Je aankoop bevestigen</h3>
+                    <h4 className="popover__subtitle">Bevestig dat je <Pricfy>{ total }</Pricfy> zal betalen</h4>
                 </div>
                 <div className="mb-6">
-                    <div className="flex justify-between">
+                    <div className="flex justify-between text--main">
                         <span>Wallet</span>
                         <span className="font-semibold">{ selectedWallet?.provider.label }</span>
                     </div>
                     <p className="text-stone-400 text-sm">Geselecteerde wallet</p>
                     
-                    <div className="flex justify-between mt-4">
+                    <div className="flex justify-between mt-4 text--main">
                         <span>Subtotaal</span>
                         <span className="font-semibold"><Pricfy>{ total }</Pricfy></span>
                     </div>
                     <p className="text-stone-400 text-sm">Totaal van alle items</p>
                                 
-                    <div className="flex justify-between mt-4">
+                    <div className="flex justify-between mt-4 text--main">
                         <span>Boete</span>
                         <span className="font-semibold">+ 0%</span>
                     </div>

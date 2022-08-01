@@ -43,7 +43,7 @@ const TransactionList: FC<Props> = ({ transactions, onClick, requestedTransactio
             <AnimatedList>
                 { transactions?.map(transaction => (
                     <li 
-                        className="py-4 border-b border-stone-300 last:border-b-0"
+                        className="py-4 border-b border-stone-300 dark:border-stone-700 last:border-b-0"
                         onClick={() => handleClick(transaction)}
                     >
                         <TransactionListItem transaction={ transaction } />
