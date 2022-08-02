@@ -44,9 +44,10 @@ const Popover: FC<PopoverProps> = ({ children, active, onClose, bare }) => {
         setTimeout(handleClose, 300);
     }
     
+    const dragSpeedTreshold = 29;
     const handleDrag = (event: any, data: any) => {
         const targetBounds = event.target.getBoundingClientRect();
-        const dragspeedHasCrossedTreshold = data.deltaY > 35
+        const dragspeedHasCrossedTreshold = data.deltaY > dragSpeedTreshold;
         const handleHasCrossedTreshold = targetBounds.bottom > window.innerHeight - (targetBounds.height * 4);
         
         if (dragspeedHasCrossedTreshold || handleHasCrossedTreshold) {
