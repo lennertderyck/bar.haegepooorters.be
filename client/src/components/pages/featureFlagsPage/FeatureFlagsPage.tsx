@@ -1,9 +1,10 @@
+import classNames from 'classnames';
 import { FC, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import useFlags from '../../../states/hooks/useFlags/useFlags';
 import { FeatureFlag, ID } from '../../../types/general';
 import flags from '../../../utils/data/flags';
-import { Toggle } from '../../basics';
+import { Icon, Toggle } from '../../basics';
 import { Popover } from '../../elements';
 
 type Props = {
@@ -35,12 +36,11 @@ const FeatureFlagsPage: FC<Props> = ({ children }) => {
                                 className="border-b border--themed"
                                 onClick={() => setRequestedFlag(flag.id)}
                             >
-                                <div className="w-full flex items-baseline justify-between py-4">
+                                <div className="w-full flex items-center py-4">
+                                    <Icon name={ flag.state ? 'checkbox-circle' : 'checkbox-blank-circle'} className={classNames('text--main mr-4', flag.state ? 'opacity-100' : 'opacity-20')} />
                                     <div className="flex-1 mr-6"> 
                                         <h4 className="text-lg text--main">{ flag.label }</h4>
-                                        {/* <p className="text-stone-500 text-sm">{ flag.description }</p> */}
                                     </div>
-                                    <div className="label text-stone-400">{ flag.state ? 'Ingeschakeld' : 'Uitgeschakeld' }</div>
                                 </div>
                             </li>
                         ))}

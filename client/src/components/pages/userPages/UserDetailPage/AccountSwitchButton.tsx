@@ -11,7 +11,7 @@ const AccountSwitchButton: FC<Props> = ({ children }) => {
     
     return (
         <div className="mt-4">
-            <Button fitWidth onClick={() => logout()} simple secondary small icon="arrow-left-right" iconPlacement="prepend">Gebruiker wisselen</Button>
+            <Button theme="simple" fitWidth onClick={() => logout()} simple small icon="arrow-left-right" iconPlacement="prepend">Gebruiker wisselen</Button>
         </div>
     )
 }

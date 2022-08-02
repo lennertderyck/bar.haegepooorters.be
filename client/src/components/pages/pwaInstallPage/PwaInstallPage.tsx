@@ -25,16 +25,16 @@ const PwaInstallPage: FC<Props> = ({ children }) => {
                 <p className="text-center text-stone-500">De app wordt toegevoegd aan je startschem</p>
                 
                 <div className="mt-4">
-                    <Button onClick={ app.add2Screen } icon="arrow-right-down">Installeren</Button>
+                    <Button theme="main" onClick={ app.add2Screen } icon="arrow-right-down">Installeren</Button>
                 </div>
             </div>
             {/* { isMobile ? (<>
                 <div className="container mx-auto px-12">
                     <a href="/app/session">
-                        <Button>Aanmelden</Button>
+                        <Button theme="main">Aanmelden</Button>
                     </a>
                     <a href="/app/session/new">
-                        <Button secondary className="mt-4">Account aanmaken</Button>
+                        <Button theme="secondary" className="mt-4">Account aanmaken</Button>
                     </a>
                 </div>
             </>) : (<>

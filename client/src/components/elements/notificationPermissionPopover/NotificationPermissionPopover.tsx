@@ -37,9 +37,9 @@ const NotificationPermissionPopover: FC<Props> = ({ children }) => {
                 <h4 className="text-stone-700 text-center font-medium text-lg">Mogen we je een notificatie sturen?</h4>
                 <p className="text-stone-500 mt-2">Geen zorgen, we zullen je niet stalken - beloofd!</p>
             </div>
-            <Button onClick={ requestPermission  }>Dat is ok!</Button>
-            <Button onClick={ ignore } secondary className="mt-4">Vraag me later</Button>
-            <Button onClick={ block } secondary simple small className="mt-6 text-stone-400">Niet meer vragen</Button>
+            <Button theme="main" onClick={ requestPermission  }>Dat is ok!</Button>
+            <Button theme="secondary" onClick={ ignore } secondary className="mt-4">Vraag me later</Button>
+            <Button theme="simple" onClick={ block } secondary simple small className="mt-6 text-stone-400">Niet meer vragen</Button>
         </Popover>
     )
 }

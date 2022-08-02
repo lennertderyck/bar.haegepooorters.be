@@ -45,7 +45,7 @@ const AddSessionPage: FC<Props> = ({ children }) => {
                     <div className="flex-1">
                         <Input name="email" type="email" placeholder="Emailadres" required />
                     </div>
-                    <Button type="submit">Volgende</Button>
+                    <Button theme="main" type="submit">Volgende</Button>
                     <p className="text-center text-stone-500 text-sm mt-5">
                         <span className="font-semibold">Nog geen account?</span><br />
                         Vraag een account aan bij de stamleiding

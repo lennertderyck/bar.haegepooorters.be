@@ -4,7 +4,7 @@ import {
 // @ts-ignore
 import SlideRoutes from 'react-slide-routes';
 import { FC } from 'react';
-import { AddSessionPage, CartPage, FeatureFlagsPage, LoginPage, ProductsListPage, SessionIndexPage, StartPage, UserDetailPage, UserProfilePage, UserTransactionsPage, WalletDetailPage, WalletJoinPage, WalletOverviewPage } from "../../pages";
+import { AddSessionPage, CartPage, FeatureFlagsPage, LoginPage, ManagePage, ProductsListPage, SessionIndexPage, StartPage, UserDetailPage, UserProfilePage, UserTransactionsPage, WalletDetailPage, WalletJoinPage, WalletOverviewPage } from "../../pages";
 import ProtectedRoute from "../protectedRoute/ProtectedRoute";
 import RouterOutlet from "../routerOutlet/RouterOutlet";
 import Footer from "../footer/Footer";
@@ -63,6 +63,9 @@ const Router: FC<Props> = ({ children }) => {
                                 </Route>
                             </Route>
                             <Route path="shared/:type/:data" element={ <></> } />
+                            <Route path="manage" element={ <ProtectedRoute><RouterOutlet /></ProtectedRoute> }>
+                                <Route index element={ <ManagePage /> } />
+                            </Route>
                             <Route path="/" element={ <ProtectedRoute><StartPage /></ProtectedRoute> } />
                         </Route>
                     </SlideRoutes>

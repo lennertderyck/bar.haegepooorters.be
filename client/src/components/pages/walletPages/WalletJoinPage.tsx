@@ -83,7 +83,7 @@ const WalletJoinPage: FC<Props> = ({ children }) => {
                     <div className="flex-1"> 
                         <Input defaultValue={ requestedId } name="requestedId" required placeholder="Code uitnodiging" />
                     </div>
-                    <Button>Volgende</Button>
+                    <Button theme="main">Volgende</Button>
                 </Form>
             </div>
             <Popover active={ requestedProvider !== null} onClose={() => setRequestedProvider(null)}>
@@ -93,7 +93,7 @@ const WalletJoinPage: FC<Props> = ({ children }) => {
                             <h3 className="text-2xl font-semibold">Bevestig je deelname</h3>
                             <h4 className="text-stone-400 font-medium text-lg">{ requestedProvider.creditProvider?.label }</h4>
                         </div>
-                        <Button onClick={() => joinCreditProvider(requestedProvider.creditProvider?.id)} loading={ isCreating }>Deelnemen</Button>
+                        <Button theme="main" onClick={() => joinCreditProvider(requestedProvider.creditProvider?.id)} loading={ isCreating }>Deelnemen</Button>
                         <p className="text-stone-500 text-center text-sm mt-6">Deze wallet wordt toegevoegd aan je account. Hierna kan je er crediet aan toevoegen.</p>
                         {/* <p>Standaard crediet: 0 euro</p> */}
                     </>

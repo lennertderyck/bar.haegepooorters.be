@@ -40,7 +40,7 @@ const SessionIndexPge: FC<Props> = () => {
                             <div
                                 onClick={() => handleSessionSelect(session)}
                                 title={ `Laatst aangemeld ${lastSession}` }
-                                className="py-4 flex items-center gap-x-4 border-b border-stone-300 dark:border-stone-700"
+                                className="py-4 flex items-center gap-x-4 border-b border--themed"
                             >
                                 <Icon name="user" size="1.6rem" className="text--main" />
                                 <div>
@@ -52,7 +52,7 @@ const SessionIndexPge: FC<Props> = () => {
                     })}
                 </div>
                 <Link to="/session/new">
-                    <Button secondary>Ander account</Button>
+                    <Button theme="secondary">Ander account</Button>
                 </Link>
             </div>
             <Popover active={ !!selectedSession } onClose={() => selectSession(undefined)}>

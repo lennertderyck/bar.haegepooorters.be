@@ -14,7 +14,7 @@ const flags: FeatureFlag[] = [
         state: false
     },
     {
-        label: 'Product toevoeg popup',
+        label: 'Popup › product toegevoegd',
         id: 'prod_popup',
         description: 'Toon een popup wanneer een product toegevoegd wordt door op desbetreffende knop te klikken.',
         state: true

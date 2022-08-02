@@ -55,6 +55,11 @@ const Footer: FC<Props> = ({ children }) => {
                                 <Icon className={ isActive ? 'text-[#00bcd4] -translate-y-0.5' : 'text-stone-600' } name="account-circle" size="1.6rem" />
                             )}
                         </ActiveLink>
+                        <ActiveLink to="/manage">
+                            {({ isActive }) => (
+                                <Icon className={ isActive ? 'text-[#00bcd4] -translate-y-0.5' : 'text-stone-600' } name="group" size="1.6rem" />
+                            )}
+                        </ActiveLink>
                     </div>
                 </div>
             </div>

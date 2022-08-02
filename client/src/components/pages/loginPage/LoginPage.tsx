@@ -45,9 +45,9 @@ const LoginPage: FC<Props> = ({ children }) => {
                 <div className="pre-heading">Hi, { selectedSession.user.firstName }</div>
                 <div className="heading">Verifieer dat jij het bent</div>
             </div>
-            <Button onClick={ login } loading={ authState.loading } className="mb-4">Aanmelden</Button>
+            <Button theme="main" onClick={ login } loading={ authState.loading } className="mb-4">Aanmelden</Button>
             <Link to="/session">
-                <Button secondary>Ander account</Button>
+                <Button theme="secondary">Ander account</Button>
             </Link>
         </div>
         

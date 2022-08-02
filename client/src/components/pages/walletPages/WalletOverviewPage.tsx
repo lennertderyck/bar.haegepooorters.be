@@ -16,7 +16,7 @@ const WalletOverviewPage: FC<Props> = () => {
             
             <WalletListing />
             <Link to="join">
-                <Button secondary small className="mt-6">Heb je een code?</Button>
+                <Button theme="secondary" small className="mt-6">Heb je een code?</Button>
             </Link>
         </div>
     )

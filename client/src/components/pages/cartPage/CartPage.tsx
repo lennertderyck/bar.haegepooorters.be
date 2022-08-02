@@ -39,7 +39,7 @@ const CartPage: FC<Props> = ({ children }) => {
                         <>
                             <p className="text-stone-500 text-lg">Je winkelmandje is nog leeg</p>
                             <Link to="/bar">
-                                <Button secondary className="mt-4">Items toevoegen</Button>
+                                <Button theme="secondary" className="mt-4">Items toevoegen</Button>
                             </Link>
                         </>
                     )}
@@ -70,7 +70,7 @@ const CartPage: FC<Props> = ({ children }) => {
                         <p className="text-stone-400 text-sm">Achterstallige betaling</p>
                     </div>
                     
-                    <Button icon="arrow-right" onClick={() => setShowConfirm(true)}>
+                    <Button theme="main" icon="arrow-right" onClick={() => setShowConfirm(true)}>
                         <div className="flex items-center justify-between w-full mr-2">
                             <span>Afrekenen</span>
                             <span><Pricfy>{ total }</Pricfy></span>
@@ -96,7 +96,7 @@ const CartPage: FC<Props> = ({ children }) => {
                     </div>
                     <p className="text-stone-400 text-sm">Achterstallige betaling</p>
                 </div>
-                <Button icon="arrow-right">
+                <Button theme="main" icon="arrow-right">
                     Aankoop bevestigen
                 </Button>
             </Popover>

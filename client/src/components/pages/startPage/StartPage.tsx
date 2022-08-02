@@ -62,11 +62,11 @@ const StartPage: FC<Props> = ({ children }) => {
                     </div>
                 </div>
             </div>
-            <div className="sticky bottom-0 left-1/2 -translate-x-1/2 w-fit">
+            <div className="sticky bottom-0 left-0 right-0 flex justify-center">
                 <Button 
                     small 
                     fitWidth 
-                    secondary 
+                    theme="secondary" 
                     icon="qr-code"
                     onClick={ open }
                 >Code scannen</Button>

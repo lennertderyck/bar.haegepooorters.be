@@ -180,10 +180,11 @@ const ProductsListPage: FC<Props> = () => {
                         </div>
                         <p className="text-stone-400 text-sm">Achterstallige betaling</p>
                             
-                        <Button secondary icon="arrow-right-s" className="mt-6" onClick={() => setShowWalletSelect(true)}>{ selectedWallet?.provider?.label || 'Selecteer een wallet'}</Button>
+                        <Button theme="secondary" icon="arrow-right-s" className="mt-6" onClick={() => setShowWalletSelect(true)}>{ selectedWallet?.provider?.label || 'Selecteer een wallet'}</Button>
                     </div>
                         
                     <Button 
+                        theme="main"
                         disabled={ (hasWalletSelected && !positiveBalance) }
                         icon="arrow-right" 
                         onClick={ handlePurchase }
@@ -233,7 +234,7 @@ const ProductsListPage: FC<Props> = () => {
                     </div>
                     <p className="text-stone-400 text-sm">Achterstallige betaling</p>
                 </div>
-                <Button icon="arrow-right" loading={ purchase.loading } onClick={ handlePurchaseConfirm }>
+                <Button theme="main" icon="arrow-right" loading={ purchase.loading } onClick={ handlePurchaseConfirm }>
                     Aankoop bevestigen
                 </Button>
             </Popover>
